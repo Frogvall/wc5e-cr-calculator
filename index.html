@@ -1,5 +1,6 @@
 <html>
-<link rel="shortcut icon" href="img/cIcon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="warcraft.ico" type="image/x-icon"/>
+<title>WC5e CR Calculator</title>
 <script>
   function fillOut(_valueString) {
     if (!_valueString) return;
@@ -51,7 +52,6 @@
     document.getElementById("undeadFortitude").checked = values[44];
     document.getElementById("web").checked = values[45];
     Calculate();
-    console.log(generateUrl());
   }
   function generateUrl() {
     var valueString = "" +
@@ -630,6 +630,7 @@
     } else {
       CRCell.style.backgroundColor = "white";
     }
+    history.pushState({},"WC5e CR Calculator","?" + generateUrl())
   }
 </script>
 <style>
