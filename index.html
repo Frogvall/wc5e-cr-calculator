@@ -589,7 +589,7 @@
 
     document.getElementById("CRbyHP").innerHTML = roundCR(TransformToTableValue(HPCR), true);
     if (HPCR == -3) {
-      document.getElementById("HPCRAC").innerHTML = "≤13<br/><span class='smallAddendum'>" + adjAC + "</span>";
+      document.getElementById("HPCRAC").innerHTML = "&le;13<br/><span class='smallAddendum'>" + adjAC + "</span>";
     } else {
       document.getElementById("HPCRAC").innerHTML = expectedAC + "<br/><span class='smallAddendum'>" + adjAC + "</span>";
     }
@@ -651,8 +651,8 @@
 
     document.getElementById("CRbyDmg").innerHTML = roundCR(TransformToTableValue(dmgCR), true) + "<br/><span class='smallAddendum'>(" + TransformToTableValue(dmgCR) + ")</span>";
     if (dmgCR == -3) {
-      document.getElementById("DmgCRAtt").innerHTML = "≤+3<br/><span class='smallAddendum'>" + adjAtt + "</span>";
-      document.getElementById("DmgCRSDC").innerHTML = "≤13<br/><span class='smallAddendum'>" + adjSDC + "</span>";
+      document.getElementById("DmgCRAtt").innerHTML = "&le;+3<br/><span class='smallAddendum'>" + adjAtt + "</span>";
+      document.getElementById("DmgCRSDC").innerHTML = "&le;13<br/><span class='smallAddendum'>" + adjSDC + "</span>";
     } else {
       document.getElementById("DmgCRAtt").innerHTML = "+" + expectedAtt + "<br/><span class='smallAddendum'>" + adjAtt + "</span>";
       document.getElementById("DmgCRSDC").innerHTML = expectedSDC + "<br/><span class='smallAddendum'>" + adjSDC + "</span>";
