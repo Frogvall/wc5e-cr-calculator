@@ -218,6 +218,16 @@
       } else {
         return Math.round(_num * 4) / 4;
       }
+    } else if (_num >= 0.125) {
+      if (_alpha) {
+        if ((Math.round(_num * 8) / 8) == 0.125) {
+          return "&frac18;";
+        } else {
+          return "&frac14;";
+        }
+      } else {
+        return Math.round(_num * 8) / 8;
+      }
     } else if (_alpha) {
       if ((Math.round(_num * 8) / 8) == 0.125) {
         return "&frac18;";
@@ -230,13 +240,13 @@
   }
   function DCRbyHP(_hp) {
     if (_hp < 7) {
-      return 0;
+      return -3;
     } else if (_hp < 19) {
-      return 0.125;
+      return -2;
     } else if (_hp < 31) {
-      return 0.25;
+      return -1;
     } else if (_hp < 51) {
-      return 0.5;
+      return 0
     } else if (_hp < 86) {
       return 1;
     } else if (_hp < 356) {
@@ -246,7 +256,7 @@
     }
   }
   function ACforHPCR(_hpcr) {
-    if (_hpcr <= 0) {
+    if (_hpcr <= -3) {
       return Math.min(parseInt(document.getElementById("actualAC").value), 13);
     } else if (_hpcr < 3) {
       return 13;
@@ -266,13 +276,13 @@
   }
   function OCRbyDmg(_dmg) {
     if (_dmg < 2) {
-      return 0;
+      return -3;
     } else if (_dmg < 4) {
-      return 0.125;
+      return -2;
     } else if (_dmg < 6) {
-      return 0.25;
+      return -1;
     } else if (_dmg < 9) {
-      return 0.5;
+      return 0;
     } else if (_dmg < 123) {
       return 1 + Math.floor((_dmg - 9) / 6);
     } else {
@@ -280,7 +290,7 @@
     }
   }
   function AttforDmgCR(_dmgcr) {
-    if (_dmgcr <= 0) {
+    if (_dmgcr <= -3) {
       return Math.min(parseInt(document.getElementById("actualAB").value), 3);
     } else if (_dmgcr < 3) {
       return 3;
@@ -309,7 +319,7 @@
     }
   }
   function SDCforDmgCR(_dmgcr) {
-    if (_dmgcr <= 0) {
+    if (_dmgcr <= -3) {
       return Math.min(parseInt(document.getElementById("actualSDC").value), 13);
     } else if (_dmgcr < 4) {
       return 13;
@@ -361,6 +371,13 @@
     if (parseInt(document.getElementById("actualSDC").value) < 1) { document.getElementById("actualSDC").value = 1; }
     if (parseInt(document.getElementById("legendaryResistanceUses").value) < 1) { document.getElementById("legendaryResistanceUses").value = 1; }
     if (parseInt(document.getElementById("regenerationValue").value) < 1) { document.getElementById("regenerationValue").value = 1; }
+  }
+  function TransformToTableValue(_value) {
+    if (_value == -3) return 0;
+    if (_value == -2) return 0.125;
+    if (_value == -1) return 0.250;
+    if (_value == 0) return 0.5;
+    return _value;
   }
   function Calculate() // Begins main CR calculation
   {
@@ -527,12 +544,12 @@
     } else {
       dmg6 = 0;
     }
+    document.getElementById("rndDmg6").innerHTML = dmg6;
     if (rounds <= 1) {
       document.getElementById("nRounds").innerHTML = "1 round";
     } else {
       document.getElementById("nRounds").innerHTML = rounds + " rounds";
     }
-    document.getElementById("rndDmg6").innerHTML = dmg6;
     totalDmg = dmg1 + dmg2 + dmg3 + dmg4 + dmg5 + dmg6;
     var modDmg = totalDmg;
     if (rounds > 0) {
@@ -554,18 +571,29 @@
     var DCR = HPCR;
     var adjAC = "";
 
-    if ((AC - expectedAC) > -2) {
-      DCR += Math.floor((AC - expectedAC) / 2);
+    if (HPCR == -3) {
+      if (AC > 14) {
+        DCR += Math.floor(Math.abs(AC - 13) / 2);
+        adjAC = " (+" + Math.floor(Math.abs(AC - 13) / 2) + " CR)"
+      } else {
+        adjAC = " (+0 CR)" 
+      }
+    } else if ((AC - expectedAC) > -2) {
+      DCR += Math.floor(Math.abs(AC - expectedAC) / 2);
       adjAC = " (+" + Math.floor(Math.abs(AC - expectedAC) / 2) + " CR)"
     } else {
       DCR -= Math.floor(Math.abs(AC - expectedAC) / 2);
       adjAC = " (-" + Math.floor(Math.abs(AC - expectedAC) / 2) + " CR)"
     }
-    if (DCR < 0) { DCR = 0; }
+    if (DCR < -3) { DCR = -3; }
 
-    document.getElementById("CRbyHP").innerHTML = roundCR(HPCR, true);
-    document.getElementById("HPCRAC").innerHTML = expectedAC + "<br/><span class='smallAddendum'>" + adjAC + "</span>";
-    document.getElementById("defensiveCR").innerHTML = roundCR(DCR, true) + "<br/><span class='smallAddendum'>(" + DCR + ")</span>";
+    document.getElementById("CRbyHP").innerHTML = roundCR(TransformToTableValue(HPCR), true);
+    if (HPCR == -3) {
+      document.getElementById("HPCRAC").innerHTML = "≤13<br/><span class='smallAddendum'>" + adjAC + "</span>";
+    } else {
+      document.getElementById("HPCRAC").innerHTML = expectedAC + "<br/><span class='smallAddendum'>" + adjAC + "</span>";
+    }
+      document.getElementById("defensiveCR").innerHTML = roundCR(TransformToTableValue(DCR), true) + "<br/><span class='smallAddendum'>(" + TransformToTableValue(DCR) + ")</span>";
 
     //CALCULATE OFFENSIVE CR
     var dmgCR = OCRbyDmg(modDmg);
@@ -577,14 +605,28 @@
     var adjAtt = "";
     var adjSDC = "";
 
-    if ((attBonus - expectedAtt) > -2) {
-      aOCR += Math.floor((attBonus - expectedAtt) / 2);
+    if (dmgCR == -3) {
+      if (attBonus > 4) {
+        aOCR += Math.floor(Math.abs(attBonus - 3) / 2);
+        adjAtt = " (+" + Math.floor(Math.abs(attBonus - 3) / 2) + " CR)"
+      } else {
+        adjAtt = " (+0 CR)"
+      }
+    } else if ((attBonus - expectedAtt) > -2) {
+      aOCR += Math.floor(Math.abs(attBonus - expectedAtt) / 2);
       adjAtt = " (+" + Math.floor(Math.abs(attBonus - expectedAtt) / 2) + " CR)"
     } else {
       aOCR -= Math.floor(Math.abs(attBonus - expectedAtt) / 2);
       adjAtt = " (-" + Math.floor(Math.abs(attBonus - expectedAtt) / 2) + " CR)"
     }
-    if ((SDC - expectedSDC) > -2) {
+    if (dmgCR == -3) {
+      if (SDC > 14) {
+        sOCR += Math.floor(Math.abs(SDC - 13) / 2);
+        adjSDC = " (+" + Math.floor(Math.abs(SDC - 13) / 2) + " CR)"
+      } else {
+        adjSDC = " (+0 CR)"
+      }
+    } else if ((SDC - expectedSDC) > -2) {
       sOCR += Math.floor((SDC - expectedSDC) / 2);
       adjSDC = " (+" + Math.floor(Math.abs(SDC - expectedSDC) / 2) + " CR)"
     } else {
@@ -605,20 +647,25 @@
       document.getElementById("offensiveCRbySDC").style.color = "#000";
       document.getElementById("offensiveCRbySDCLabel").style.color = "#000";
     }
-    if (OCR < 0) { OCR = 0; }
+    if (OCR < -3) { OCR = -3; }
 
-    document.getElementById("CRbyDmg").innerHTML = roundCR(dmgCR, true) + "<br/><span class='smallAddendum'>(" + dmgCR + ")</span>";
-    document.getElementById("DmgCRAtt").innerHTML = "+" + expectedAtt + "<br/><span class='smallAddendum'>" + adjAtt + "</span>";
-    document.getElementById("DmgCRSDC").innerHTML = expectedSDC + "<br/><span class='smallAddendum'>" + adjSDC + "</span>";
-    document.getElementById("offensiveCRbyAtt").innerHTML = roundCR(aOCR, true) + "<br/><span class='smallAddendum'>(" + aOCR + ")</span>";
-    document.getElementById("offensiveCRbySDC").innerHTML = roundCR(sOCR, true) + "<br/><span class='smallAddendum'>(" + sOCR + ")</span>";
+    document.getElementById("CRbyDmg").innerHTML = roundCR(TransformToTableValue(dmgCR), true) + "<br/><span class='smallAddendum'>(" + TransformToTableValue(dmgCR) + ")</span>";
+    if (dmgCR == -3) {
+      document.getElementById("DmgCRAtt").innerHTML = "≤+3<br/><span class='smallAddendum'>" + adjAtt + "</span>";
+      document.getElementById("DmgCRSDC").innerHTML = "≤13<br/><span class='smallAddendum'>" + adjSDC + "</span>";
+    } else {
+      document.getElementById("DmgCRAtt").innerHTML = "+" + expectedAtt + "<br/><span class='smallAddendum'>" + adjAtt + "</span>";
+      document.getElementById("DmgCRSDC").innerHTML = expectedSDC + "<br/><span class='smallAddendum'>" + adjSDC + "</span>";
+    }
+    document.getElementById("offensiveCRbyAtt").innerHTML = roundCR(TransformToTableValue(aOCR), true) + "<br/><span class='smallAddendum'>(" + TransformToTableValue(aOCR) + ")</span>";
+    document.getElementById("offensiveCRbySDC").innerHTML = roundCR(TransformToTableValue(sOCR), true) + "<br/><span class='smallAddendum'>(" + TransformToTableValue(sOCR) + ")</span>";
 
     //CALCULATE FINAL CR
-    document.getElementById("finalCR").innerHTML = roundCR((DCR + OCR) / 2, true) + "<br/><span class='lessSmallAddendum'>(" + ((DCR + OCR) / 2) + ")</span>";
+    document.getElementById("finalCR").innerHTML = roundCR((TransformToTableValue(DCR) + TransformToTableValue(OCR)) / 2, true) + "<br/><span class='lessSmallAddendum'>(" + ((TransformToTableValue(DCR) + TransformToTableValue(OCR)) / 2) + ")</span>";
 
     //CHECK AGAINST TARGET CR RANGE
     var CRCell = document.getElementById("targetCRCell");
-    var finalCR = roundCR((DCR + OCR) / 2);
+    var finalCR = roundCR((TransformToTableValue(DCR) + TransformToTableValue(OCR)) / 2);
     if (tier == 1 && finalCR > 4) {
       CRCell.style.backgroundColor = "yellow";
     } else if (tier == 2 && (finalCR < 5 || finalCR > 10)) {
@@ -1267,14 +1314,10 @@
     <div id="tutLink">
       <center><a onclick="popup('tutorial')" title="Click to learn more">What is this, and how do I use it?</a></center>
     </div>
-    <div id="versionInfo">v.0.9<br />Known Issues:<br />
-      <ul>
-        <li>Sometimes rounds incorrectly for offensive/defensive CRs less than 1.</li>
-      </ul>
-    </div>
-    <div id="credits">Credits: I did not write this code. The code was written by /u/ItsADnDMonsterNow and can be found
-      <a href=https://iadndmn.neocities.org/CRcalc.html>here</a>. I just modified the code to take our modfied monster
-      table into account and added code for generating calculations from url.</a></div>
+    <div id="versionInfo">v.1.0</div>
+    <div id="credits">Credits: I did not originally write this code. The code was written by /u/ItsADnDMonsterNow and can be found
+      <a href=https://iadndmn.neocities.org/CRcalc.html>here</a>. I modified the code to take our modfied monster
+      table into account and added code for generating calculations from url, as well as fixing several bugs oriented around CR < 1.</a></div>
     <!-- INPUT TABLE ENDS -->
     <!-- REFERENCE TABLE BEGINS -->
     <table id="referenceTable">
