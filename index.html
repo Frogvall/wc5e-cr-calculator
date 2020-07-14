@@ -627,7 +627,7 @@
         adjSDC = " (+0 CR)"
       }
     } else if ((SDC - expectedSDC) > -2) {
-      sOCR += Math.floor((SDC - expectedSDC) / 2);
+      sOCR += Math.floor(Math.abs(SDC - expectedSDC) / 2);
       adjSDC = " (+" + Math.floor(Math.abs(SDC - expectedSDC) / 2) + " CR)"
     } else {
       sOCR -= Math.floor(Math.abs(SDC - expectedSDC) / 2);
