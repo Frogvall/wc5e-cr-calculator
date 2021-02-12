@@ -38,7 +38,7 @@ let spellMap = new Map().addSpells();
 let select = null;
 
 function spellListSelect() {
-    spellArray = Array.from(spellMap.keys(), x => {return {text: x}});
+    spellArray = Array.from(spellMap.keys(), x => {return {value: x, text: x}});
     return [
         { label: 'Cantrips', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 0) },
         { label: 'Level 1', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 1) },
@@ -51,7 +51,6 @@ function spellListSelect() {
         { label: 'Level 8', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 8) },
         { label: 'Level 9', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 9) },
 ];
-    return Array.from(spellMap.keys(), x => {return {text: x}});
 }
 
 function addSpellsToSelect() {
