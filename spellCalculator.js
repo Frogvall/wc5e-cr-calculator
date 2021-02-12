@@ -38,6 +38,19 @@ let spellMap = new Map().addSpells();
 let select = null;
 
 function spellListSelect() {
+    spellArray = Array.from(spellMap.keys(), x => {return {text: x}});
+    return [
+        { label: 'Cantrips', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 0) },
+        { label: 'Level 1', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 1) },
+        { label: 'Level 2', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 2) },
+        { label: 'Level 3', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 3) },
+        { label: 'Level 4', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 4) },
+        { label: 'Level 5', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 5) },
+        { label: 'Level 6', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 6) },
+        { label: 'Level 7', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 7) },
+        { label: 'Level 8', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 8) },
+        { label: 'Level 9', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 9) },
+];
     return Array.from(spellMap.keys(), x => {return {text: x}});
 }
 
@@ -49,30 +62,37 @@ function addSpellsToSelect() {
     });
 }
 
-function setSpellDamage(rnd1, rnd2, rnd3) {
-    document.getElementById("spellDmg1").innerHTML = rnd1;
-    document.getElementById("spellDmg2").innerHTML = rnd2;
-    document.getElementById("spellDmg3").innerHTML = rnd3;
+function setSpellDamage(dmgArray, spellArray) {
+    document.getElementById("spellDmg1").innerHTML = dmgArray[0];
+    document.getElementById("spellDmg2").innerHTML = dmgArray[1];
+    document.getElementById("spellDmg3").innerHTML = dmgArray[2];
+    document.getElementById("spellUsed1").innerHTML = spellArray[0];
+    document.getElementById("spellUsed2").innerHTML = spellArray[1];
+    document.getElementById("spellUsed3").innerHTML = spellArray[2];
     history.pushState({},"WC5e CR Calculator","?" + generateUrl());
 }
 
 function calculateSpellDamage() {
     let spellSlots = [parseInt(document.getElementById("ss1").value), parseInt(document.getElementById("ss2").value), parseInt(document.getElementById("ss3").value)];
-    if (!select) return setSpellDamage(0,0,0);
+    if (!select) return setSpellDamage([0,0,0],["","",""]);
     let spells = select.selected();
-    if (spells.length == 0) return setSpellDamage(0,0,0);
+    if (spells.length == 0) return setSpellDamage([0,0,0],["","",""]);
     let dmgArray = [3];
+    let usedArray = [3];
     for (i = 0; i < 3; i++) {
         let dmg = 0;
+        let spellUsed = "";
         spells.forEach(spellName => {
             let spell = spellMap.get(spellName);
-            if (spell.spellSlot <= spellSlots[i]) {
-                dmg = Math.max(dmg, spell.calcDamage(spellSlots[i]));
+            if (spell.spellSlot <= spellSlots[i] && (spelldmg = spell.calcDamage(spellSlots[i])) > dmg) {
+                dmg = spelldmg;
+                spellUsed = spellName;
             }
         });
         dmgArray[i] = dmg;
+        usedArray[i] = spellUsed;
     }
-    setSpellDamage(dmgArray[0],dmgArray[1],dmgArray[2]);
+    setSpellDamage(dmgArray, usedArray);
 }
 
 function transferDamage() {
