@@ -59,7 +59,7 @@ function addSpellsToMap(map) {
     map.set('Shadowfury', new Spell(22.5, 0, 6, false));
     map.set('Starfall', new Spell(35, 3.5, 6, true));
     map.set('Starfire', new Spell(13, 6.5, 1, false));
-    map.set('Starsurge', new Spell(28, 3.5, 4, true));
+    map.set('Starsurge', new Spell(28, 3.5, 3, true));
     //map.set('Unholy Weapon', new Spell(54, 0, 5, false)); //value based on 2 turns with two attacks + explosion
 
 
