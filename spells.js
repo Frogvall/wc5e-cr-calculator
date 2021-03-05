@@ -176,7 +176,7 @@ function addSpellsToMap(map) {
     map.set('Investiture of Ice', new Spell(11, 0, 6, true)); //only bludegeoning cube damage
     map.set('Jims Magic Missile', new Spell(15, 5, 1, false));
     map.set('Life Transference', new Spell(18, 4.5, 3, false));
-    map.set('Lightning Arrow', new Spell(36, 0, 3, false)); //Single target + AoE, Weapon enchant, value based on one attack
+    map.set('Lightning Arrow', new ComplexSpell(3, spellSlotUsed => Math.floor(18 + 4.5*(spellSlotUsed-3)) + Math.floor(9 + 4.5*(spellSlotUsed-3)) * 2));
     map.set('Lightning Bolt', new Spell(28, 3.5, 3, true));
     map.set('Maelstrom', new Spell(21, 0, 5, true));
     map.set('Magic Missile', new Spell(10.5, 3.5, 1, false));

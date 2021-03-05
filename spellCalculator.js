@@ -21,6 +21,17 @@ class Cantrip extends Spell {
     }
 }
 
+class ComplexSpell extends Spell {
+    constructor(spellSlot, damageFormula) {
+        super(0, 0, spellSlot, false);
+        this.damageFormula = damageFormula;
+    }
+
+    calcDamage(spellSlotUsed) {
+        return this.damageFormula(spellSlotUsed)
+    }
+}
+
 Object.defineProperty(Map.prototype, "addSpells", {
     value: function addSpells() {
         return addSpellsToMap(this);
