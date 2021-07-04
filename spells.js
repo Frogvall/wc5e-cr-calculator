@@ -16,7 +16,7 @@ function addSpellsToMap(map) {
     map.set('Lightning Blast', new Cantrip(4.5, 4.5, false));
     map.set('Lunar Strike', new Cantrip(5, 5, false)); //always 2 targets
     map.set('Mind Blast', new Cantrip(5.5, 5.5, false));
-    map.set('Shadow Bolt', new Cantrip(4.5, 4.5, false));
+    map.set('Shadow Bolt', new Cantrip(6.5, 6.5, false));
     map.set('Solar Wrath', new Cantrip(4.5, 4.5, false));
 
     // leveled
