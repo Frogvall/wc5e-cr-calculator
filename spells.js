@@ -22,7 +22,7 @@ function addSpellsToMap(map) {
     // leveled
 
     map.set('Arcane Barrage', new Spell(37.5, 12.5, 4, false));
-    map.set('Arcane Explosion', new Spell(27.5, 4,5, 3, true));
+    map.set('Arcane Explosion', new Spell(27, 4.5, 3, true));
     map.set('Army of the Dead', new Spell(63, 0, 5, false)); //DoT
     map.set('Alextrasza\'s Fury', new Spell(42, 0, 8, true)); //Blastwave 
     map.set('Blizzard', new Spell(10.5, 3.5, 3, true)); //DoT
