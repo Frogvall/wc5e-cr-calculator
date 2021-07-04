@@ -469,7 +469,7 @@ function Calculate() // Begins main CR calculation
   if (document.getElementById("damageTransfer").checked) { hpMult += 1; }
   if ((document.getElementById("frightfulPresence").checked || document.getElementById("horrifyingVisage").checked) && tier <= 2) { hpMult += 0.25; }    // Frightful Presence and Horrifying Visage are listed in the DMG as having the same effect, and in fact referencing each other. As such, it doesn't make sense for their effects to stack, so just check for either one
   if (document.getElementById("possession").checked) { hpMult += 1; }
-  HP = Math.round(HP * hpMult);   // Once all HP multipliers have been assessed, multiply by 'Actual HP'
+  HP = Math.floor(HP * hpMult);   // Once all HP multipliers have been assessed, multiply by 'Actual HP'
   document.getElementById("legendaryResistanceUses").disabled = true;   // As validation/redundancy, I disable an input, then only re-enable if that input's checkbox is checked
   if (document.getElementById("legendaryResistance").checked) {
     document.getElementById("legendaryResistanceUses").disabled = false;
