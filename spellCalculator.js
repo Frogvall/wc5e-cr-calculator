@@ -45,9 +45,10 @@ let spellMap = null;
 let select = null;
 
 function calculateSpellList() {
-    let selectedSpells = select.selected();
+    let selectedSpells = select?.selected();
     updateSpellsInSelect()
-    select.set(selectedSpells);
+    if (selectedSpells)
+        select.set(selectedSpells);
     calculateSpellDamage()
     Calculate()
 }

@@ -5,7 +5,7 @@ function addSpellsToMap(map, wotc, wc5e, coa) {
         addWC5eSpells(map);
     if (coa)
         addCoASpells(map);
-    return map;
+    return new Map([...map.entries()].sort());
 }
 
 // FORMATING EXAMPLE 
