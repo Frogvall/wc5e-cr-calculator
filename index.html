@@ -4,9 +4,9 @@
 <title>WC5e CR Calculator</title>
 <script type="text/javascript" src="slimselect.min.js"></script>
 <link type="text/css" href="slimselect.min.css" rel="stylesheet"/>
-<script type="text/javascript" src="spells.min.js"></script>
-<script type="text/javascript" src="spellCalculator.min.js"></script>
-<script type="text/javascript" src="calculator.min.js"></script>
+<script type="text/javascript" src="spells.js"></script>
+<script type="text/javascript" src="spellCalculator.js"></script>
+<script type="text/javascript" src="calculator.js"></script>
 <div id="foundation">
   <form id="mainForm">
     <!-- INPUT TABLE BEGINS -->
@@ -401,6 +401,23 @@
         <td class="calculatedCell">Round 3</td>
         <td class="calculatedCell" id="spellUsed3" colspan="3"></td>
       </tr>
+      <tr>
+        <th class="refSubHeader" colspan="4">Sources used</th>
+      </tr>
+      <tr>
+        <td class="innerCell" colspan="2" title="Use Warcraft 5e spells">
+          <label for="wc5e"><input id="wc5e" type="checkbox"
+              onclick="calculateSpellList()">&nbsp;WC5e</label>
+        </td>
+        <td class="innerCell" colspan="1" title="Use Champion of Azeroth spells">
+          <label for="coa"><input id="coa" type="checkbox"
+              onclick="calculateSpellList()">&nbsp;CoA</label>
+        </td>
+        <td class="innerCell" colspan="1" title="Use official spells">
+          <label for="wotc"><input id="wotc" type="checkbox"
+              onclick="calculateSpellList()">&nbsp;Official</label>
+        </td>
+      </tr>
     </table>
     <!-- SPELLS TABLE ENDS -->
     <!-- REFERENCE TABLE BEGINS -->
@@ -732,7 +749,6 @@
   </form>
 </div>
 <script>
-  addSpellsToSelect();
   fillOut(window.location.search.substring(1));
 </script>
 

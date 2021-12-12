@@ -1,11 +1,21 @@
-function addSpellsToMap(map) {
-    // FORMATING EXAMPLE 
-    //
-    // map.set('Name', new Cantrip(baseDamage, scalingDamage, isAoE?));
-    // map.set('Name', new Spell(baseDamage, scalingDamage, spellLevel, isAoE?));
+function addSpellsToMap(map, wotc, wc5e, coa) {
+    if (wotc)
+        addWotCSpells(map);
+    if (wc5e)
+        addWC5eSpells(map);
+    if (coa)
+        addCoASpells(map);
+    return map;
+}
 
+// FORMATING EXAMPLE 
+//
+// map.set('Name', new Cantrip(baseDamage, scalingDamage, isAoE?));
+// map.set('Name', new Spell(baseDamage, scalingDamage, spellLevel, isAoE?));
+function addCoASpells(map) {
+}
 
-
+function addWC5eSpells(map) {
     // WC5e Spells
 
     // Cantrips
@@ -61,8 +71,9 @@ function addSpellsToMap(map) {
     map.set('Starfire', new Spell(13, 6.5, 1, false));
     map.set('Starsurge', new Spell(28, 3.5, 3, true));
     //map.set('Unholy Weapon', new Spell(54, 0, 5, false)); //value based on 2 turns with two attacks + explosion
+}
 
-
+function addWotCSpells(map) {
     // WotC Spells
 
     // Cantrips
@@ -242,5 +253,4 @@ function addSpellsToMap(map) {
     map.set('Wrath of Nature', new Spell(41.5, 0, 5, false)); //DoT, 4d6 AoE, 3d8 single target
     map.set('Thunderous Smite', new Spell(3.5, 0, 1, false));
     map.set('Zephyr Strike', new Spell(4.5, 0, 1, false));
-    return map;
 }

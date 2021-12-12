@@ -51,9 +51,22 @@ function fillOut(_valueString) {
   document.getElementById("ss2").value = values[47];
   document.getElementById("ss3").value = values[48];
   document.getElementById("scl").value = values[49];
-  let spellNames = [values.length-50];
-  for (i = 50; i < values.length; i++) {
-    spellNames[i-50] = decodeURIComponent(values[i]);
+  let spellStartIndex = 50;
+  if (values.length > 50 && /^-?\d+$/.test(values[50])) {
+    document.getElementById("wc5e").checked = values[50];
+    document.getElementById("coa").checked = values[51];
+    document.getElementById("wotc").checked = values[52];
+    spellStartIndex = 53;
+  }
+  else {
+    document.getElementById("wc5e").checked = 1;
+    document.getElementById("coa").checked = 0;
+    document.getElementById("wotc").checked = 1;  
+  }
+  addSpellsToSelect();
+  let spellNames = [values.length-spellStartIndex];
+  for (i = spellStartIndex; i < values.length; i++) {
+    spellNames[i-spellStartIndex] = decodeURIComponent(values[i]);
   }
   select.set(spellNames);
   calculateSpellDamage();
@@ -160,6 +173,12 @@ function generateUrl() {
     document.getElementById("ss3").value
     + ";" +
     document.getElementById("scl").value
+    + ";" +
+    (document.getElementById("wc5e").checked ? "1" : "")
+    + ";" +
+    (document.getElementById("coa").checked ? "1" : "")
+    + ";" +
+    (document.getElementById("wotc").checked ? "1" : "")
     + ";" +
     select.selected().join(';')
     ;
