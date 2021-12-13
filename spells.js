@@ -98,7 +98,7 @@ function addWC5eSpells(map) {
     map.set('Blood Boil', new Spell(10, 5, 2, true));
     map.set('Cataclysm', new Spell(44.5, 0, 8, true)); //DoT
     map.set('Corpse Explosion', new Spell(7, 7, 1, true));
-    map.set('Dark Void', new Spell(5, 2.5, 1, false));
+    map.set('Dark Void', new Spell(5, 2.5, 1, true));
     map.set('Death and Decay', new Spell(18, 4.5, 4, true)); //DoT
     map.set('Death Chain', new Spell(54, 0, 5, false)); //Special DoT
     map.set('Deathwyrm\'s Fury', new Spell(45, 0, 5, true));
