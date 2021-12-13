@@ -13,6 +13,65 @@ function addSpellsToMap(map, wotc, wc5e, coa) {
 // map.set('Name', new Cantrip(baseDamage, scalingDamage, isAoE?));
 // map.set('Name', new Spell(baseDamage, scalingDamage, spellLevel, isAoE?));
 function addCoASpells(map) {
+    
+    // Azeroth
+    // Cantrips
+    
+    map.set('Arcane Blast', new Cantrip(4.5, 4.5, false));
+    map.set('Lightning Strike', new Cantrip(4.5, 4.5, false));
+    map.set('Mind Flay', new Cantrip(4.5, 4.5, false));
+    map.set('Shadowbolt', new Cantrip(4.5, 4.5, false));
+    map.set('Wrath', new Cantrip(4.5, 4.5, false));
+
+    // Leveled
+
+    map.set('Agony', new Spell(3.5, 3.5, 1, false));
+    map.set('Arcane Barrage', new Spell(30, 10, 3, false));
+    map.set('Arcane Explosion', new Spell(11, 5.5, 2, true));
+    map.set('Blast Wave', new Spell(18, 4.5, 6, true));
+    map.set('Channel Demonfire', new Spell(63, 10.5, 6, false)); //DoT
+    map.set('Comet Storm', new Spell(84, 0, 7, false)); // Assumed to hit each member in an average sized party (4)
+    map.set('Conflagate', new Spell(18, 4.5, 2, false));
+    map.set('Divine Star', new Spell(22,5, 4.5, 4, true));
+    map.set('Ebon Bolt', new Spell(72, 0, 8, false));
+    map.set('Elemental Blast', new Spell(52,5, 10.5, 6, false));
+    map.set('Elemental Shock', new Spell(11, 5.5, 1, false)); //DoT
+    map.set('Faerie Swarm', new Spell(21, 3.5, 3, false)); //DoT
+    map.set('Frostfire Bolt', new Spell(14, 7, 1, false));
+    map.set('Holy Fire', new Spell(7, 7, 2, false)); //DoT
+    map.set('Holy Nova', new Spell(17.5, 3.5, 6, true));
+    map.set('Ice Lance', new Spell(33, 5.5, 3, false));
+    map.set('Lava Burst', new Spell(14, 7, 1, false));
+    map.set('Living Bomb', new Spell(27, 13.5, 2, false)); //AoE math can't handle this. Assuming 2d8 hits main target, and then explodes for 2d8 on itself and one additional target for a total of 6d8. Scaling damage is 1d8x3
+    map.set('Lunar Fury', new Spell(36, 4.5, 5, false));
+    map.set('Magic Orb', new Spell(22, 5.5, 4, true)); //DoT
+    map.set('Mind Blast', new Spell(16.5, 5.5, 2, false));
+    map.set('Mind Sear', new Spell(10.5, 3.5, 3, true)); //DoT
+    map.set('Moonfire/Sunfire', new Spell(22, 11, 2, false)); //Additional damage always happen, so adding that.
+    map.set('Phantom Singularity', new Spell(21, 3.5, 7, true)); //DoT
+    map.set('Pyroblast', new Spell(40.5, 4.5, 5, true)); //Treating this as AoE, as the first attack automatically crits, and the secondary damage is AoE.
+    map.set('Rain of Chaos', new Spell(140, 0, 9, false)); //Assumed to hit each member in an average sized party (4), infernals not accounted for
+    map.set('Rain of Fire', new Spell(16.5, 5.5, 3, true)); //DoT, but requires your action every turn
+    map.set('Ring of Frost', new Spell(18, 4.5, 5, true)); //DoT
+    map.set('Shadowburn', new Spell(28, 7, 3, false));
+    map.set('Shadowfury', new Spell(14, 3.5, 4, true));
+    map.set('Starfall', new Spell(54, 13.5, 6, false));
+    map.set('Starfire', new Spell(22, 16.5, 1, false)); //AoE math can't handle this. Assuming 2d10 hits main target, and two targets are hit with 1d10 each.
+    map.set('Starsurge', new Spell(35, 7, 4, false));
+    map.set('Sundering', new Spell(27, 4.5, 5, true));
+    map.set('Supernova', new Spell(33, 5.5, 5, true));
+    map.set('Thermal Void', new Spell(67.5, 0, 9, true));
+    map.set('Thunderstorm', new Spell(22.5, 4.5, 4, true));
+    map.set('Ursol\'s Vortex', new Spell(18, 4.5, 3, true));
+        
+    // Northrend
+    // Leveled
+
+    map.set('Chains of Ice', new Spell(9, 4.5, 1, false));
+    map.set('Corpse Explosion', new Spell(7, 3.5, 1, true));
+    map.set('Death and Decay', new Spell(18, 4.5, 4, true)); //DoT
+    map.set('Deathwyrm\'s Fury', new Spell(45, 0, 5, true));
+    map.set('Howling Blast', new Spell(11, 4.5, 2, true));
 }
 
 function addWC5eSpells(map) {
@@ -42,7 +101,7 @@ function addWC5eSpells(map) {
     map.set('Dark Void', new Spell(5, 2.5, 1, false));
     map.set('Death and Decay', new Spell(18, 4.5, 4, true)); //DoT
     map.set('Death Chain', new Spell(54, 0, 5, false)); //Special DoT
-    map.set('Deathwyrms Fury', new Spell(22.5, 0, 5, true));
+    map.set('Deathwyrm\'s Fury', new Spell(45, 0, 5, true));
     //map.set('Demonfire', new Spell(52.5, 10.5, 4, false)); depracted
     map.set('Divine Star', new Spell(3.5, 3.5, 3, true)); //Heal for the same amount
     map.set('Drain Life', new Spell(4.5, 4.5, 1, false)); //DoT
