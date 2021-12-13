@@ -6,4 +6,4 @@ I did not originally write this code. The code was written by [/u/ItsADnDMonster
 
 With 2.0, I also added a spell damage calculator. Spell list with damage values was made by [AceAzzermeen](https://github.com/AceAzzermeen).
 
-With 3.0, I also added a Champion of Azeroth spells to the spell calculator.
+With 3.0, I also added Champion of Azeroth spells to the spell calculator.
