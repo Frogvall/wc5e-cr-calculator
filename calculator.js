@@ -57,7 +57,7 @@ function fillOut(_valueString) {
   let spellStartIndex = 50;
   if (values.length > 50 && /^-?\d+$/.test(values[50])) {
     document.getElementById("wc5e").checked = values[50] == "1";
-    document.getElementById("coa").checked = values[51] == "1";
+    document.getElementById("coa").checked = values[51] == "1" && values[50] != "1";
     document.getElementById("wotc").checked = values[52] == "1";
     spellStartIndex = 53;
   }

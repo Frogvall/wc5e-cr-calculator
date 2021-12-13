@@ -1,7 +1,7 @@
 <html>
 <link rel="shortcut icon" href="warcraft.ico" type="image/x-icon"/>
 <link rel="stylesheet" href="style.css" type="text/css"/>
-<title>WC5e CR Calculator</title>
+<title>Warcraft CR Calculator</title>
 <script type="text/javascript" src="slimselect.min.js"></script>
 <link type="text/css" href="slimselect.min.css" rel="stylesheet"/>
 <script type="text/javascript" src="spells.js"></script>
@@ -12,7 +12,7 @@
     <!-- INPUT TABLE BEGINS -->
     <table id="inputTable">
       <tr>
-        <td class="header" colspan="6">WC5e CR Calculator</td>
+        <td class="header" colspan="6">Warcraft CR Calculator</td>
       </tr>
       <tr>
         <td class="labelCell" colspan="3">
@@ -408,15 +408,15 @@
       <tr>
         <td class="innerCell" colspan="2" title="Use Warcraft 5e spells">
           <label for="wc5e"><input id="wc5e" type="checkbox" checked
-              onclick="calculateSpellList()">&nbsp;WC5e</label>
+              onclick="calculateSpellList('wc5e')">&nbsp;WC5e</label>
         </td>
         <td class="innerCell" colspan="1" title="Use Champion of Azeroth spells">
           <label for="coa"><input id="coa" type="checkbox"
-              onclick="calculateSpellList()">&nbsp;CoA</label>
+              onclick="calculateSpellList('coa')">&nbsp;CoA</label>
         </td>
         <td class="innerCell" colspan="1" title="Use official spells">
           <label for="wotc"><input id="wotc" type="checkbox" checked
-              onclick="calculateSpellList()">&nbsp;Official</label>
+              onclick="calculateSpellList('wotc')">&nbsp;Official</label>
         </td>
       </tr>
     </table>
