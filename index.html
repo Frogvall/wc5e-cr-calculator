@@ -1,7 +1,7 @@
 <html>
 <link rel="shortcut icon" href="warcraft.ico" type="image/x-icon"/>
 <link rel="stylesheet" href="style.min.css" type="text/css"/>
-<title>WC5e CR Calculator</title>
+<title>Warcraft CR Calculator</title>
 <script type="text/javascript" src="slimselect.min.js"></script>
 <link type="text/css" href="slimselect.min.css" rel="stylesheet"/>
 <script type="text/javascript" src="spells.min.js"></script>
@@ -12,7 +12,7 @@
     <!-- INPUT TABLE BEGINS -->
     <table id="inputTable">
       <tr>
-        <td class="header" colspan="6">WC5e CR Calculator</td>
+        <td class="header" colspan="6">Warcraft CR Calculator</td>
       </tr>
       <tr>
         <td class="labelCell" colspan="3">
@@ -25,7 +25,8 @@
               <option value="5-10">5-10</option>
               <option value="11-16">11-16</option>
               <option value="17p">17+</option>
-            </select></center>
+            </select>
+          </center>
         </td>
       </tr>
       <tr>
@@ -337,11 +338,12 @@
     <div id="tutLink">
       <center><a onclick="popup('tutorial')" title="Click to learn more">What is this, and how do I use it?</a></center>
     </div>
-    <div id="versionInfo">v.2.0<br/><br/>Known Issues:<br/><ul><li>Spell calculator does not take concentration and damage over time into account.</li></ul></div>
+    <div id="versionInfo">v.3.0<br/><br/>Known Issues:<br/><ul><li>Spell calculator does not take concentration and damage over time into account.</li></ul></div>
     <div id="credits">Credits: I did not originally write this code. The code was written by <a href=https://www.reddit.com/user/ItsADnDMonsterNow>/u/ItsADnDMonsterNow</a> and can be found
       <a href=https://iadndmn.neocities.org/CRcalc.html>here</a>. I modified the code to take our modfied monster
-      table into account and added code for generating calculations from url, as well as fixing several bugs oriented around CR < 1.
-    <br>With 2.0, I also added a spell damage calculator. Spell list with damage values was made by <a href=https://github.com/AceAzzermeen>AceAzzermeen</a>.</div>
+      table into account and added code for generating calculations from url, as well as fixing several bugs oriented around CR &lt; 1.
+    <br/>With 2.0, I also added a spell damage calculator. Spell list with damage values was made by <a href=https://github.com/AceAzzermeen>AceAzzermeen</a>.
+    <br/>With 3.0, I also added a Champion of Azeroth spells to the spell calculator</a>.</div>
     <!-- INPUT TABLE ENDS -->
     <!-- SPELLS TABLE BEINGS -->
     <table id="spellsTable">
@@ -383,7 +385,7 @@
         <td class="calculatedCell" id="spellDmg2">0</td>
         <td class="calculatedCell" id="spellDmg3">0</td>
         <td>
-          <button type="button" onclick="return transferDamage()"><< Transfer</button>
+          <button type="button" onclick="return transferDamage()">&lt;&lt; Transfer</button>
         </td>
       </tr>
       <tr>
@@ -400,6 +402,23 @@
       <tr>
         <td class="calculatedCell">Round 3</td>
         <td class="calculatedCell" id="spellUsed3" colspan="3"></td>
+      </tr>
+      <tr>
+        <th class="refSubHeader" colspan="4">Sources used</th>
+      </tr>
+      <tr>
+        <td class="innerCell" colspan="2" title="Use Warcraft 5e spells">
+          <label for="wc5e"><input id="wc5e" type="checkbox" checked
+              onclick="calculateSpellList('wc5e')">&nbsp;WC5e</label>
+        </td>
+        <td class="innerCell" colspan="1" title="Use Champion of Azeroth spells">
+          <label for="coa"><input id="coa" type="checkbox"
+              onclick="calculateSpellList('coa')">&nbsp;CoA</label>
+        </td>
+        <td class="innerCell" colspan="1" title="Use official spells">
+          <label for="wotc"><input id="wotc" type="checkbox" checked
+              onclick="calculateSpellList('wotc')">&nbsp;Official</label>
+        </td>
       </tr>
     </table>
     <!-- SPELLS TABLE ENDS -->
@@ -732,7 +751,6 @@
   </form>
 </div>
 <script>
-  addSpellsToSelect();
   fillOut(window.location.search.substring(1));
 </script>
 

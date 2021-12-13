@@ -32,21 +32,34 @@ class ComplexSpell extends Spell {
     }
 }
 
-Object.defineProperty(Map.prototype, "addSpells", {
-    value: function addSpells() {
-        return addSpellsToMap(this);
-    },
-    writable: true,
-    configurable: true
-});
+Map.prototype.addSpells = function() {
+    return addSpellsToMap(this, document.getElementById('wotc').checked, document.getElementById('wc5e').checked, document.getElementById('coa').checked);
+}
 
 function getSpellCasterLevelModification() {
-    let casterLevel = parseInt(document.getElementById("scl").value);
+    let casterLevel = parseInt(document.getElementById('scl').value);
     return Math.floor((casterLevel+1)/6);    
 }
 
-let spellMap = new Map().addSpells();
+let spellMap = null;
 let select = null;
+
+function calculateSpellList(clickedCheckbox) {
+    if (document.getElementById(clickedCheckbox).checked) {
+        if (clickedCheckbox == 'coa') {
+            document.getElementById('wc5e').checked = false
+        }
+        else if (clickedCheckbox == 'wc5e') {
+            document.getElementById('coa').checked = false
+        }
+    }
+    let selectedSpells = select?.selected();
+    updateSpellsInSelect()
+    if (selectedSpells)
+        select.set(selectedSpells);
+    calculateSpellDamage()
+    Calculate()
+}
 
 function spellListSelect() {
     spellArray = Array.from(spellMap.keys(), x => {return {value: x, text: x}});
@@ -65,11 +78,17 @@ function spellListSelect() {
 }
 
 function addSpellsToSelect() {
+    spellMap = new Map().addSpells();
     select = new SlimSelect({
         select: '#spellsSelect',
         data: spellListSelect(),
         onChange: function() {calculateSpellDamage();}
     });
+}
+
+function updateSpellsInSelect() {
+    spellMap = new Map().addSpells();
+    select.setData(spellListSelect());
 }
 
 function setSpellDamage(dmgArray, spellArray) {
