@@ -248,6 +248,7 @@ function addWotCSpells(map) {
     map.set('Life Transference', new Spell(18, 4.5, 3, false));
     map.set('Lightning Arrow', new ComplexSpell(3, spellSlotUsed => Math.floor(18 + 4.5*(spellSlotUsed-3)) + Math.floor(9 + 4.5*(spellSlotUsed-3)) * 2));
     map.set('Lightning Bolt', new Spell(28, 3.5, 3, true));
+    map.set('Maddening Darkness', new Spell(36, 0, 8, true))
     map.set('Maelstrom', new Spell(21, 0, 5, true));
     map.set('Magic Missile', new Spell(10.5, 3.5, 1, false));
     map.set('Magnify Gravity', new Spell(9, 4.5, 1, true));
@@ -255,7 +256,7 @@ function addWotCSpells(map) {
     map.set('Melfs Acid Arrow', new Spell(15, 2.5, 2, false));
     map.set('Melfs Minute Meteors', new Spell(7, 0, 3, true)); //DoT
     map.set('Mental Prison', new Spell(27.5, 0, 6, false)); 
-    map.set('Meteor Swarm', new Spell(140, 0, 9, true));
+    map.set('Meteor Swarm', new Spell(140, 0, 9, true)); //DoT
     map.set('Mind Spike', new Spell(13.5, 4.5, 2, false));
     map.set('Moonbeam', new Spell(11, 5.5, 2, true));
     map.set('Mordenkainens Faithful Hound', new Spell(18, 0, 4, false));
