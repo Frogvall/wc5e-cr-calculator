@@ -114,19 +114,18 @@ function addWC5eSpells(map) {
 
     map.set('Arcane Barrage', new Spell(37.5, 12.5, 4, false));
     map.set('Arcane Explosion', new Spell(27, 4.5, 3, true));
-    map.set('Army of the Dead', new Spell(63, 0, 5, false)); //DoT
+    map.set('Army of the Dead', new DoTSpell(5, true, new Spell(63, 0, 5, false), new Spell(63, 0, 5, false))); //DoT
     map.set('Alextrasza\'s Fury', new Spell(42, 0, 8, true)); //Blastwave 
-    map.set('Blizzard', new Spell(10.5, 3.5, 3, true)); //DoT
+    map.set('Blizzard', new DoTSpell(3, true, new Spell(10.5, 3.5, 3, true), new Spell(10.5, 3.5, 3, true))); //DoT
     map.set('Blood Boil', new Spell(10, 5, 2, true));
-    map.set('Cataclysm', new Spell(44.5, 0, 8, true)); //DoT
+    map.set('Cataclysm', new DoTSpell(8, false, new Spell(44.5, 0, 8, true), new Spell(12, 0, 8, true), new Spell(2.5, 0, 8, true))); //DoT
     map.set('Corpse Explosion', new Spell(7, 7, 1, true));
     map.set('Dark Void', new Spell(5, 2.5, 1, true));
-    map.set('Death and Decay', new Spell(18, 4.5, 4, true)); //DoT
-    map.set('Death Chain', new Spell(54, 0, 5, false)); //Special DoT
+    map.set('Death and Decay', new DoTSpell(4, true, new Spell(18, 4.5, 4, true), new Spell(18, 4.5, 4, true))); //DoT,
+    map.set('Death Chain', new Spell(54, 0, 5, false)); //Special DoT, not quantifyable
     map.set('Deathwyrm\'s Fury', new Spell(45, 0, 5, true));
-    //map.set('Demonfire', new Spell(52.5, 10.5, 4, false)); depracted
     map.set('Divine Star', new Spell(3.5, 3.5, 3, true)); //Heal for the same amount
-    map.set('Drain Life', new Spell(4.5, 4.5, 1, false)); //DoT
+    map.set('Drain Life', new DoTSpell(1, true, new Spell(4.5, 4.5, 1, false), new Spell(4.5, 4.5, 1, false))); //DoT
     //map.set('Dread Favor', new Spell(2.5, 0, 1, false)); //Weapon enchant, value based on one attack
     map.set('Earthen Spike', new Spell(37, 4.5, 3, true));
     map.set('Elemental Shock', new Spell(13.5, 4.5, 1, false));
@@ -140,10 +139,10 @@ function addWC5eSpells(map) {
     map.set('Icy Touch', new Spell(13.5, 4.5, 1, false));
     map.set('Lava Burst', new Spell(21, 7, 2, false));
     //map.set('Lightning Shield', new Spell(2.5, 2.5, 1, false)); //Based on beeing hit
-    map.set('Living Bomb', new Spell(19.5, 7, 2, false)); //DoT
+    map.set('Living Bomb', new DoTSpell(2, true, new Spell(5.5, 0, 2, false), new Spell(7, 3.5, 2, true))); //DoT, assumed to explode on the second turn
     //map.set('Mantle of the Fallen Crusader', new Spell(2.5, 0, 3, false)); //AoE Weapon enchant, value based on one attack
     map.set('Mind Flay', new Spell(7, 3.5, 2, true));
-    map.set('Pyroblast', new Spell(77, 5.5, 7, false)); //DoT 1d10, first tick included
+    map.set('Pyroblast', new DoTSpell(7, false, new Spell(77, 5.5, 7, false), new Spell(5.5, 0, 7, false))); //DoT
     map.set('Rain of Fire', new Spell(19.5, 6.5, 5, true));
     map.set('Righteous Smite', new Spell(7, 3.5, 4, false));
     map.set('Shadow Crash', new Spell(36, 4.5, 5, true));
