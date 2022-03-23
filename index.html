@@ -349,11 +349,12 @@
     <!-- SPELLS TABLE BEINGS -->
     <table id="spellsTable">
       <tr>
-        <th class="refheader" colspan="4">Spell damage calculator</th>
+        <th class="refheader" colspan="5">Spell damage calculator</th>
       </tr>
       <tr>
         <th class="refSubHeader" colspan="3">Top 3 spell slots</th>
         <th class="refSubHeader">Caster level</th>
+        <th class="refSubHeader">Spellcasting modifier</th>
       </tr>
       <tr>
         <td class="innerCell">
@@ -368,44 +369,47 @@
         <td>
           <input class="smallNumberIn" id="scl" type="number" value="3" onchange="calculateSpellDamage()" onclick="calculateSpellDamage()">
         </td>
+        <td>
+          <input class="smallNumberIn" id="scm" type="number" value="3" onchange="calculateSpellDamage()" onclick="calculateSpellDamage()">
+        </td>
       </tr>
       <tr>
-        <th class="refSubHeader" colspan="4">Available damage dealing spells</th>
+        <th class="refSubHeader" colspan="5">Available damage dealing spells</th>
       </tr>
       <tr>
-        <td colspan="4">
+        <td colspan="5">
           <select class="select" id="spellsSelect" multiple/>
         </td>
       </tr>
       <tr>
         <th class="refSubHeader" colspan="3">Optimal damage per round</th>
-        <th class="refSubHeader">Transfer to calculator</th>
+        <th class="refSubHeader" colspan="2">Transfer to calculator</th>
       </tr>
       <tr>
         <td class="calculatedCell" id="spellDmg1">0</td>
         <td class="calculatedCell" id="spellDmg2">0</td>
         <td class="calculatedCell" id="spellDmg3">0</td>
-        <td>
+        <td colspan="2">
           <button type="button" onclick="return transferDamage()">&lt;&lt; Transfer</button>
         </td>
       </tr>
       <tr>
-        <th class="refSubHeader" colspan="4">Spells used</th>
+        <th class="refSubHeader" colspan="5">Spells used</th>
       </tr>
       <tr>
         <td class="calculatedCell">Round 1</td>
-        <td class="calculatedCell" id="spellUsed1" colspan="3"></td>
+        <td class="calculatedCell" id="spellUsed1" colspan="4"></td>
       </tr>
       <tr>
         <td class="calculatedCell">Round 2</td>
-        <td class="calculatedCell" id="spellUsed2" colspan="3"></td>
+        <td class="calculatedCell" id="spellUsed2" colspan="4"></td>
       </tr>
       <tr>
         <td class="calculatedCell">Round 3</td>
-        <td class="calculatedCell" id="spellUsed3" colspan="3"></td>
+        <td class="calculatedCell" id="spellUsed3" colspan="4"></td>
       </tr>
       <tr>
-        <th class="refSubHeader" colspan="4">Sources used</th>
+        <th class="refSubHeader" colspan="5">Sources used</th>
       </tr>
       <tr>
         <td class="innerCell" colspan="2" title="Use Warcraft 5e spells">
@@ -416,7 +420,7 @@
           <label for="coa"><input id="coa" type="checkbox"
               onclick="calculateSpellList('coa')">&nbsp;CoA</label>
         </td>
-        <td class="innerCell" colspan="1" title="Use official spells">
+        <td class="innerCell" colspan="2" title="Use official spells">
           <label for="wotc"><input id="wotc" type="checkbox" checked
               onclick="calculateSpellList('wotc')">&nbsp;Official</label>
         </td>
