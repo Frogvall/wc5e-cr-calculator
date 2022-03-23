@@ -1,9 +1,10 @@
 class Spell {
-    constructor(baseDamage, scalingDamage, spellSlot, aoe) {
+    constructor(baseDamage, scalingDamage, spellSlot, aoe, concentration) {
         this.baseDamage = baseDamage;
         this.scalingDamage = scalingDamage;
         this.spellSlot = spellSlot;
         this.aoe = aoe;
+        this.concentration = (concentration === undefined ? false : concentration)
     }
 
     calcDamage(spellSlotUsed, currentRound) {
@@ -18,7 +19,7 @@ class Spell {
 
 class Cantrip extends Spell {
     constructor(baseDamage, scalingDamage, aoe) {
-        super(baseDamage, scalingDamage, 0, aoe);
+        super(baseDamage, scalingDamage, 0, aoe, false);
     }
 
     calcDamage(spellSlotUsed, currentRound) {
@@ -28,7 +29,7 @@ class Cantrip extends Spell {
 
 class ComplexSpell extends Spell {
     constructor(spellSlot, damageFormula) {
-        super(0, 0, spellSlot, false);
+        super(0, 0, spellSlot, false, false);
         this.damageFormula = damageFormula;
     }
 
@@ -38,9 +39,9 @@ class ComplexSpell extends Spell {
 }
 
 class DoTSpell extends Spell {
-    constructor(spellSlot, round0, round1, round2) {
-        super(0, 0, spellSlot, false);
-        if (round2 === undefined) round2 =  new Spell(0, 0, 0, false)
+    constructor(spellSlot, concentration, round0, round1, round2) {
+        super(0, 0, spellSlot, false, concentration);
+        if (round2 === undefined) round2 =  new Spell(0, 0, 0, false, false)
         this.spells = [round0, round1, round2]
     }
 
