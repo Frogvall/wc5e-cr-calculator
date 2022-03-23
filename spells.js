@@ -18,6 +18,28 @@ function addCoASpells(map) {
     // Cantrips
     
     map.set('Arcane Blast', new Cantrip(4.5, 4.5, false));
+    map.set('Chilling Blade (1d4)', new Cantrip(7, 9, false));
+    map.set('Chilling Blade (2d4)', new Cantrip(9.5, 9, false));
+    map.set('Chilling Blade (3d4)', new Cantrip(12, 9, false));
+    map.set('Chilling Blade (4d4)', new Cantrip(14.5, 9, false));
+    map.set('Chilling Blade (1d6)', new Cantrip(8, 9, false));
+    map.set('Chilling Blade (2d6)', new Cantrip(11.5, 9, false));
+    map.set('Chilling Blade (3d6)', new Cantrip(15, 9, false));
+    map.set('Chilling Blade (4d6)', new Cantrip(18.5, 9, false));
+    map.set('Chilling Blade (6d6)', new Cantrip(25.5, 9, false));
+    map.set('Chilling Blade (8d6)', new Cantrip(32.5, 9, false));
+    map.set('Chilling Blade (1d8)', new Cantrip(9, 9, false));
+    map.set('Chilling Blade (2d8)', new Cantrip(13.5, 9, false));
+    map.set('Chilling Blade (3d8)', new Cantrip(18, 9, false));
+    map.set('Chilling Blade (4d8)', new Cantrip(22.5, 9, false));
+    map.set('Chilling Blade (1d10)', new Cantrip(10, 9, false));
+    map.set('Chilling Blade (2d10)', new Cantrip(15.5, 9, false));
+    map.set('Chilling Blade (3d10)', new Cantrip(21, 9, false));
+    map.set('Chilling Blade (4d10)', new Cantrip(26.5, 9, false));
+    map.set('Chilling Blade (1d12)', new Cantrip(11, 9, false));
+    map.set('Chilling Blade (2d12)', new Cantrip(17.5, 9, false));
+    map.set('Chilling Blade (3d12)', new Cantrip(24, 9, false));
+    map.set('Chilling Blade (4d12)', new Cantrip(30.5, 9, false));
     map.set('Lightning Strike', new Cantrip(4.5, 4.5, false));
     map.set('Mind Flay', new Cantrip(4.5, 4.5, false));
     map.set('Shadowbolt', new Cantrip(4.5, 4.5, false));
@@ -29,30 +51,30 @@ function addCoASpells(map) {
     map.set('Arcane Barrage', new Spell(30, 10, 3, false));
     map.set('Arcane Explosion', new Spell(11, 5.5, 2, true));
     map.set('Blast Wave', new Spell(18, 4.5, 6, true));
-    map.set('Channel Demonfire', new Spell(63, 10.5, 6, false)); //DoT
+    map.set('Channel Demonfire', new Spell(63, 10.5, 6, false, true)); //DoT, but requires your action every turn
     map.set('Comet Storm', new Spell(84, 0, 7, false)); // Assumed to hit each member in an average sized party (4)
     map.set('Conflagate', new Spell(18, 4.5, 2, false));
     map.set('Divine Star', new Spell(22,5, 4.5, 4, true));
     map.set('Ebon Bolt', new Spell(72, 0, 8, false));
     map.set('Elemental Blast', new Spell(52,5, 10.5, 6, false));
-    map.set('Elemental Shock', new Spell(11, 5.5, 1, false)); //DoT
-    map.set('Faerie Swarm', new Spell(21, 3.5, 3, false)); //DoT
+    map.set('Elemental Shock', new DoTSpell(1, false, new Spell(11, 5.5, 1, false), new Spell(5.5, 0, 1, false))); //DoT
+    map.set('Faerie Swarm', new DoTSpell(3, true, new Spell(21, 3.5, 3, false), new Spell(10.5, 3.5, 3, false))); //DoT
     map.set('Frostfire Bolt', new Spell(14, 7, 1, false));
-    map.set('Holy Fire', new Spell(7, 7, 2, false)); //DoT
+    map.set('Holy Fire', new DoTSpell(2, true, new Spell(7, 7, 2, false), new Spell(7, 7, 2, false))); //DoT
     map.set('Holy Nova', new Spell(17.5, 3.5, 6, true));
     map.set('Ice Lance', new Spell(33, 5.5, 3, false));
     map.set('Lava Burst', new Spell(14, 7, 1, false));
     map.set('Living Bomb', new Spell(27, 13.5, 2, false)); //AoE math can't handle this. Assuming 2d8 hits main target, and then explodes for 2d8 on itself and one additional target for a total of 6d8. Scaling damage is 1d8x3
     map.set('Lunar Fury', new Spell(36, 4.5, 5, false));
-    map.set('Magic Orb', new Spell(22, 5.5, 4, true)); //DoT
+    map.set('Magic Orb', new DoTSpell(4, false, new Spell(22, 5.5, 4, true), new Spell(5.5, 0, 4, true))); //DoT
     map.set('Mind Blast', new Spell(16.5, 5.5, 2, false));
-    map.set('Mind Sear', new Spell(10.5, 3.5, 3, true)); //DoT
+    map.set('Mind Sear', new DoTSpell(3, true, new Spell(10.5, 3.5, 3, true), new Spell(10.5, 3.5, 3, true))); //DoT
     map.set('Moonfire/Sunfire', new Spell(22, 11, 2, false)); //Additional damage always happen, so adding that.
-    map.set('Phantom Singularity', new Spell(21, 3.5, 7, true)); //DoT
+    map.set('Phantom Singularity', new DoTSpell(7, true, new Spell(21, 3.5, 7, true), new Spell(21, 3.5, 7, true))); //DoT
     map.set('Pyroblast', new Spell(40.5, 4.5, 5, true)); //Treating this as AoE, as the first attack automatically crits, and the secondary damage is AoE.
     map.set('Rain of Chaos', new Spell(140, 0, 9, false)); //Assumed to hit each member in an average sized party (4), infernals not accounted for
     map.set('Rain of Fire', new Spell(16.5, 5.5, 3, true)); //DoT, but requires your action every turn
-    map.set('Ring of Frost', new Spell(18, 4.5, 5, true)); //DoT
+    map.set('Ring of Frost', new DoTSpell(5, true, new Spell(18, 4.5, 5, true), new Spell(18, 4.5, 5, true))); //DoT
     map.set('Shadowburn', new Spell(28, 7, 3, false));
     map.set('Shadowfury', new Spell(14, 3.5, 4, true));
     map.set('Starfall', new Spell(54, 13.5, 6, false));
@@ -69,7 +91,7 @@ function addCoASpells(map) {
 
     map.set('Chains of Ice', new Spell(9, 4.5, 1, false));
     map.set('Corpse Explosion', new Spell(7, 3.5, 1, true));
-    map.set('Death and Decay', new Spell(18, 4.5, 4, true)); //DoT
+    map.set('Death and Decay', new DoTSpell(4, true, new Spell(18, 4.5, 4, true), new Spell(18, 4.5, 4, true))); //DoT
     map.set('Deathwyrm\'s Fury', new Spell(45, 0, 5, true));
     map.set('Howling Blast', new Spell(11, 4.5, 2, true));
 }
@@ -248,7 +270,7 @@ function addWotCSpells(map) {
     map.set('Life Transference', new Spell(18, 4.5, 3, false));
     map.set('Lightning Arrow', new ComplexSpell(3, spellSlotUsed => Math.floor(18 + 4.5*(spellSlotUsed-3)) + Math.floor(9 + 4.5*(spellSlotUsed-3)) * 2));
     map.set('Lightning Bolt', new Spell(28, 3.5, 3, true));
-    map.set('Maddening Darkness', new Spell(36, 0, 8, true))
+    map.set('Maddening Darkness', new DoTSpell(8, false, new Spell(36, 0, 8, true), new Spell(36, 0, 8, true), new Spell(36, 0, 8, true)));
     map.set('Maelstrom', new Spell(21, 0, 5, true));
     map.set('Magic Missile', new Spell(10.5, 3.5, 1, false));
     map.set('Magnify Gravity', new Spell(9, 4.5, 1, true));
