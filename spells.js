@@ -159,16 +159,57 @@ function addWotCSpells(map) {
     // Cantrips
 
     map.set('Acid Splash', new Cantrip(7, 7, false)); //always 2 targets
-    map.set('Booming Blade', new Cantrip(9, 9, false)); //assumed the secondary damage done
+    map.set('Booming Blade (1d4)', new Cantrip(7, 9, false));
+    map.set('Booming Blade (2d4)', new Cantrip(9.5, 9, false));
+    map.set('Booming Blade (3d4)', new Cantrip(12, 9, false));
+    map.set('Booming Blade (4d4)', new Cantrip(14.5, 9, false));
+    map.set('Booming Blade (1d6)', new Cantrip(8, 9, false));
+    map.set('Booming Blade (2d6)', new Cantrip(11.5, 9, false));
+    map.set('Booming Blade (3d6)', new Cantrip(15, 9, false));
+    map.set('Booming Blade (4d6)', new Cantrip(18.5, 9, false));
+    map.set('Booming Blade (6d6)', new Cantrip(25.5, 9, false));
+    map.set('Booming Blade (8d6)', new Cantrip(32.5, 9, false));
+    map.set('Booming Blade (1d8)', new Cantrip(9, 9, false));
+    map.set('Booming Blade (2d8)', new Cantrip(13.5, 9, false));
+    map.set('Booming Blade (3d8)', new Cantrip(18, 9, false));
+    map.set('Booming Blade (4d8)', new Cantrip(22.5, 9, false));
+    map.set('Booming Blade (1d10)', new Cantrip(10, 9, false));
+    map.set('Booming Blade (2d10)', new Cantrip(15.5, 9, false));
+    map.set('Booming Blade (3d10)', new Cantrip(21, 9, false));
+    map.set('Booming Blade (4d10)', new Cantrip(26.5, 9, false));
+    map.set('Booming Blade (1d12)', new Cantrip(11, 9, false));
+    map.set('Booming Blade (2d12)', new Cantrip(17.5, 9, false));
+    map.set('Booming Blade (3d12)', new Cantrip(24, 9, false));
+    map.set('Booming Blade (4d12)', new Cantrip(30.5, 9, false));
     map.set('Chill Touch', new Cantrip(4.5, 4.5, false));
     map.set('Create Bonfire', new Cantrip(4.5, 4.5, false));
     map.set('Eldritch Blast', new Cantrip(5.5, 5.5, false));
     map.set('Fire Bolt', new Cantrip(5.5, 5.5, false));
     map.set('Frostbite', new Cantrip(3.5, 3.5, false));
-    map.set('Green-Flame Blade', new Cantrip(8.5, 9, false)); //assumed mod +3
+    map.set('Green-Flame Blade (1d4)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(2.5 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (2d4)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(5 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (3d4)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(7.5 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (4d4)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(10 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (1d6)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(3.5 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (2d6)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(7 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (3d6)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(10.5 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (4d6)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(14 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (6d6)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(21 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (8d6)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(28 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (1d8)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(4.5 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (2d8)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(9 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (3d8)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(13.5 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (4d8)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(18 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (1d10)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(5.5 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (2d10)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(11 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (3d10)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(16.5 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (4d10)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(22 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (1d12)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(6.5 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (2d12)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(13 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (3d12)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(19.5 + spellCastingModifier + 9 * spellCasterLevelModification)));
+    map.set('Green-Flame Blade (4d12)', new ModifierDependentCantrip((spellCastingModifier, spellCasterLevelModification) => Math.floor(26 + spellCastingModifier + 9 * spellCasterLevelModification)));
     map.set('Infestation', new Cantrip(3.5, 3.5, false));
     map.set('Lightning Lure', new Cantrip(4.5, 4.5, false));
-    map.set('Magic Stone', new Cantrip(6.5, 0, false)); //assumed mod +3
     map.set('Mind Sliver', new Cantrip(3.5, 3.5, false));
     map.set('Poison Spray', new Cantrip(6.5, 6.5, false));
     map.set('Primal Savagery', new Cantrip(5.5, 5.5, false));
@@ -211,12 +252,11 @@ function addWotCSpells(map) {
     map.set('Cloudkill', new Spell(22.5, 4.5, 5, true));
     map.set('Cone of Cold', new Spell(36, 4.5, 5, true));
     map.set('Control Water', new Spell(9, 0, 4, true));
-    map.set('Cordon of Arrows', new Spell(3.5, 0, 2, false)); //DoT
-    map.set('Crown of Stars', new Spell(26, 0, 7, false)); //DoT
+    map.set('Crown of Stars', new DoTSpell(7, false, new Spell(26, 0, 7, false), new Spell(26, 0, 7, false), new Spell(26, 0, 7, false))); //DoT
     //map.set('Crusaders Mantle', new Spell(2.5, 0, 3, false)); //AoE Weapon enchant, value based on one attack
     map.set('Dark Star', new Spell(45, 0, 8, true));
     map.set('Dawn', new Spell(22, 0, 5, true));
-    map.set('Delayed Blast Fireball', new Spell(77, 3.5, 7, true)); //assumed full damage with 22d6
+    map.set('Delayed Blast Fireball', new DoTSpell(7, true, new Spell(0, 0, 7, true), new Spell(0, 0, 7, true), new Spell(49, 3.5, 7, true)));
     map.set('Destructive Wave', new Spell(35, 0, 5, true));
     map.set('Disintegrate', new Spell(75, 0, 6, false));
     map.set('Dissonant Whispers', new Spell(10.5, 0, 1, false));
@@ -250,51 +290,90 @@ function addWotCSpells(map) {
     map.set('Guiding Bolt', new Spell(14, 3.5, 1, false));
     map.set('Hail of Thorns', new Spell(5.5, 5.5, 1, true));
     map.set('Harm', new Spell(49, 0, 6, false));
-    map.set('Heat Metal', new Spell(9, 4.5, 2, false)); //DoT
-    map.set('Hellish Rebuke', new Spell(11, 5.5, 1, false));
+    map.set('Heat Metal', new DoTSpell(2, true, new Spell(9, 4.5, 2, false), new Spell(9, 4.5, 2, false))); //DoT
+    //map.set('Hellish Rebuke', new Spell(11, 5.5, 1, false)); //outside of the action economy handled in this calculator
     //map.set('Hex', new Spell(3.5, 0, 1, false));
     //map.set('Holy Weapon', new Spell(36, 0, 5, false)); //value based on 2 turns with two attacks + explosion
     map.set('Hunger of Hadar', new Spell(14, 0, 3, true));
     map.set('Ice Knife', new Spell(19.5, 3.5, 1, false)); //5.5+14
     map.set('Ice Storm', new Spell(23, 4.5, 4, true));
     map.set('Illusory Dragon', new Spell(24.5, 0, 8, false));
-    map.set('Immolation', new Spell(42, 0, 5, false)); //assumed inital damage + 1 tick of DoT damage
+    map.set('Immolation', new DoTSpell(5, true, new Spell(28, 0, 5, false), new Spell(14, 0, 5, false))); //DoT
     map.set('Incendiary Cloud', new Spell(45, 0, 8, true));
     map.set('Inflict Wounds', new Spell(16.5, 5.5, 1, false));
     map.set('Insect Plague', new Spell(22, 5.5, 5, true));
-    map.set('Investiture of Flame', new Spell(18, 0, 6, true)); //only fire line damage
-    map.set('Investiture of Ice', new Spell(14, 0, 6, true)); //only cold cone damage
-    map.set('Investiture of Ice', new Spell(11, 0, 6, true)); //only bludegeoning cube damage
     map.set('Jims Magic Missile', new Spell(15, 5, 1, false));
     map.set('Life Transference', new Spell(18, 4.5, 3, false));
     map.set('Lightning Arrow', new ComplexSpell(3, spellSlotUsed => Math.floor(18 + 4.5*(spellSlotUsed-3)) + Math.floor(9 + 4.5*(spellSlotUsed-3)) * 2));
     map.set('Lightning Bolt', new Spell(28, 3.5, 3, true));
-    map.set('Maddening Darkness', new DoTSpell(8, false, new Spell(36, 0, 8, true), new Spell(36, 0, 8, true), new Spell(36, 0, 8, true)));
+    map.set('Maddening Darkness', new DoTSpell(8, false, new Spell(36, 0, 8, true), new Spell(36, 0, 8, true), new Spell(36, 0, 8, true))); //DoT
     map.set('Maelstrom', new Spell(21, 0, 5, true));
     map.set('Magic Missile', new Spell(10.5, 3.5, 1, false));
     map.set('Magnify Gravity', new Spell(9, 4.5, 1, true));
-    map.set('Maximilians Earthen Grasp', new Spell(7, 0, 2, false)); //DoT
-    map.set('Melfs Acid Arrow', new Spell(15, 2.5, 2, false));
-    map.set('Melfs Minute Meteors', new Spell(7, 0, 3, true)); //DoT
+    map.set('Maximilian\'s Earthen Grasp', new Spell(7, 0, 2, false)); //DoT, but requires your action every turn
+    map.set('Melf\'s Acid Arrow', new Spell(15, 2.5, 2, false));
+    map.set('Melf\'s Minute Meteors', new DoTSpell(3, true, new Spell(14, 0, 3, true), new Spell(14, 0, 3, true))); //DoT
     map.set('Mental Prison', new Spell(27.5, 0, 6, false)); 
-    map.set('Meteor Swarm', new Spell(140, 0, 9, true)); //DoT
+    map.set('Meteor Swarm', new Spell(560, 0, 9, false)); //Assumed to hit each member in an average sized party (4)
     map.set('Mind Spike', new Spell(13.5, 4.5, 2, false));
     map.set('Moonbeam', new Spell(11, 5.5, 2, true));
-    map.set('Mordenkainens Faithful Hound', new Spell(18, 0, 4, false));
-    map.set('Mordenkainens Sword', new Spell(16.5, 0, 7, false)); //DoT
+    map.set('Mordenkainen\'s Faithful Hound', new Spell(18, 0, 4, false));
+    map.set('Mordenkainen\'s Sword', new DoTSpell(7, true, new Spell(16.5, 0, 7, false), new Spell(16.5, 0, 7, false))); //DoT
     map.set('Negative Energy Flood', new Spell(32.5, 0, 5, false)); 
     map.set('Otilukes Freezing Sphere', new Spell(35, 3.5, 6, true));
-    map.set('Phantasmal Force', new Spell(3.5, 0, 2, false)); //DoT
-    map.set('Phantasmal Killer', new Spell(22, 5.5, 4, false)); //DoT
-    map.set('Prismatic Spray', new Spell(280, 0, 7, false)); //8 targets, 10d6
-    map.set('Prismatic Wall', new Spell(175, 0, 9, false)); //7 layers, 10d6
-    map.set('Psychic Scream', new Spell(490, 0, 9, true)); //10 targets, 14d6
+    map.set('Phantasmal Force', new DoTSpell(2, true, new Spell(3.5, 0, 2, false), new Spell(3.5, 0, 2, false))); //DoT
+    map.set('Phantasmal Killer', new DoTSpell(4, true, new Spell(22, 5.5, 4, false), new Spell(22, 5.5, 4, false))); //DoT
+    map.set('Prismatic Spray', new Spell(70, 0, 7, true)); //Assumes both targets roll 8 and then rolls two damaging rays
+    map.set('Psychic Scream', new Spell(49, 0, 9, true)); 
     map.set('Pulse Wave', new Spell(21, 3.5, 5, true));
     map.set('Ravenous Void', new Spell(27.5, 0, 9, true));
     map.set('Ray of Sickness', new Spell(9, 4.5, 1, false)); 
-    //map.set('Reality Break', new Spell(65, 0, 8, false)); //DoT, very inconsistent
+    map.set('Reality Break', new DoTSpell(8, true, new Spell(65, 0, 8, false), new Spell(65, 0, 8, false))); //DoT
     map.set('Scorching Ray', new Spell(21, 7, 2, false)); 
-    map.set('Searing Smite', new Spell(3.5, 3.5, 1, false)); //DoT
+    map.set('Booming Blade (1d4)', new Cantrip(7, 9, false));
+    map.set('Booming Blade (2d4)', new Cantrip(9.5, 9, false));
+    map.set('Booming Blade (3d4)', new Cantrip(12, 9, false));
+    map.set('Booming Blade (4d4)', new Cantrip(14.5, 9, false));
+    map.set('Booming Blade (1d6)', new Cantrip(8, 9, false));
+    map.set('Booming Blade (2d6)', new Cantrip(11.5, 9, false));
+    map.set('Booming Blade (3d6)', new Cantrip(15, 9, false));
+    map.set('Booming Blade (4d6)', new Cantrip(18.5, 9, false));
+    map.set('Booming Blade (6d6)', new Cantrip(25.5, 9, false));
+    map.set('Booming Blade (8d6)', new Cantrip(32.5, 9, false));
+    map.set('Booming Blade (1d8)', new Cantrip(9, 9, false));
+    map.set('Booming Blade (2d8)', new Cantrip(13.5, 9, false));
+    map.set('Booming Blade (3d8)', new Cantrip(18, 9, false));
+    map.set('Booming Blade (4d8)', new Cantrip(22.5, 9, false));
+    map.set('Booming Blade (1d10)', new Cantrip(10, 9, false));
+    map.set('Booming Blade (2d10)', new Cantrip(15.5, 9, false));
+    map.set('Booming Blade (3d10)', new Cantrip(21, 9, false));
+    map.set('Booming Blade (4d10)', new Cantrip(26.5, 9, false));
+    map.set('Booming Blade (1d12)', new Cantrip(11, 9, false));
+    map.set('Booming Blade (2d12)', new Cantrip(17.5, 9, false));
+    map.set('Booming Blade (3d12)', new Cantrip(24, 9, false));
+    map.set('Booming Blade (4d12)', new Cantrip(30.5, 9, false));
+    map.set('Searing Smite (1d4)', new DoTSpell(1, true, new Spell(9.5, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (2d4)', new DoTSpell(1, true, new Spell(12, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (3d4)', new DoTSpell(1, true, new Spell(14.5, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (4d4)', new DoTSpell(1, true, new Spell(17, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (1d6)', new DoTSpell(1, true, new Spell(10.5, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (2d6)', new DoTSpell(1, true, new Spell(14, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (3d6)', new DoTSpell(1, true, new Spell(17.5, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (4d6)', new DoTSpell(1, true, new Spell(21, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (6d6)', new DoTSpell(1, true, new Spell(28, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (8d6)', new DoTSpell(1, true, new Spell(35, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (1d8)', new DoTSpell(1, true, new Spell(11.5, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (2d8)', new DoTSpell(1, true, new Spell(16, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (3d8)', new DoTSpell(1, true, new Spell(20.5, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (4d8)', new DoTSpell(1, true, new Spell(25, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (1d10)', new DoTSpell(1, true, new Spell(12.5, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (2d10)', new DoTSpell(1, true, new Spell(18, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (3d10)', new DoTSpell(1, true, new Spell(23.5, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (4d10)', new DoTSpell(1, true, new Spell(29, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (1d12)', new DoTSpell(1, true, new Spell(13.5, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (2d12)', new DoTSpell(1, true, new Spell(20, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (3d12)', new DoTSpell(1, true, new Spell(26.5, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
+    map.set('Searing Smite (4d12)', new DoTSpell(1, true, new Spell(33, 3.5, 1, false), new Spell(3.5, 0, 1, false))); //DoT
     //map.set('Shadow Blade', new Spell(9, 2.25, 2, false)); //Weapon enchant, value based on one attack, scales every 2 level
     //map.set('Shadow of Moil', new Spell(9, 0, 4, false)); //Based on beeing hit
     map.set('Shatter', new Spell(13.5, 4.5, 2, true));
@@ -302,17 +381,17 @@ function addWotCSpells(map) {
     map.set('Snillocs Snowball Swarm', new Spell(10.5, 3.5, 2, true));
     //map.set('Spike Growth', new Spell(5, 0, 2, false)); //Based on feet traveled
     map.set('Snillocs Snowball Swarm', new Spell(13.5, 4.5, 3, true));
-    map.set('Spiritual Weapon', new Spell(7.5, 4.5, 2, false)); //DoT, assumed mod +3
+    //map.set('Spiritual Weapon', new Spell(7.5, 4.5, 2, false)); //DoT, assumed mod +3
     map.set('Staggering Smite', new Spell(14, 0, 4, false));
-    map.set('Steel Wind Strike', new Spell(165, 0, 5, false)); //5 targets 6d10
+    map.set('Steel Wind Strike', new Spell(33, 0, 5, true)); 
     //map.set('Storm of Vengeance', new Spell(, , , true)); //Just to much stuff
     map.set('Storm Sphere', new Spell(28, 3.5, 4, false)); //2d6 AoE, 4d6 single target
-    map.set('Sunbeam', new Spell(27, 0, 6, true)); //DoT
+    map.set('Sunbeam', new Spell(27, 0, 6, true)); //DoT, but requires your action every turn
     map.set('Sunburst', new Spell(42, 0, 8, true));
     //map.set('Symbol', new Spell(55, 0, 7, true)); //not a combat spell
     map.set('Synaptic Static', new Spell(28, 0, 5, true));
-    map.set('Tashas Caustic Brew', new Spell(5, 5, 1, true)); //DoT
-    map.set('Tashas Mind Whip', new Spell(10.5, 10.5, 2, false));
+    map.set('Tasha\'s Caustic Brew', new DoTSpell(1, true, new Spell(5, 5, 1, true), new Spell(5, 5, 1, true))); //DoT
+    map.set('Tasha\'s Mind Whip', new Spell(10.5, 10.5, 2, false));
     //map.set('Tensers Transformation', new Spell(13, 0, 6, false)); //Weapon enchant, value based on two attacks
     map.set('Synaptic Static', new Spell(16.5, 5.5, 3, true));
     map.set('Thunderous Smite', new Spell(7, 0, 1, false));
@@ -320,18 +399,18 @@ function addWotCSpells(map) {
     map.set('Tidal Wave', new Spell(18, 0, 3, true));
     map.set('Time Ravage', new Spell(65, 0, 9, false));
     map.set('Transmute Rock', new Spell(18, 0, 5, true));
-    map.set('Tsunami', new Spell(60.5, 0, 8, true)); //6d10 inital, on following turns 5d10 reduced by 1d10 every round, assumed initial damage 6d10 + 1 tick 5d10
+    map.set('Tsunami', new DoTSpell(8, true, new Spell(33, 0, 8, true), new Spell(27.5, 0, 8, true))); //DoT
     map.set('Vampiric Touch', new Spell(10.5, 3.5, 3, false));
     map.set('Vitriolic Sphere', new Spell(37.5, 5, 4, true));
-    map.set('Wall of Fire', new Spell(22.5, 4.5, 4, true)); //DoT
+    map.set('Wall of Fire', new DoTSpell(4, true, new Spell(22.5, 4.5, 4, true), new Spell(22.5, 4.5, 4, true))); //DoT
     map.set('Wall of Ice', new Spell(35, 7, 6, true)); //only inital damage 10d6, passing through the wall does 5d6 + 1d6 per level
-    map.set('Wall of Light', new Spell(54, 4.5, 5, false)); //inital damage 4d8 AoE, once per turn 4d8 against a single creature as an action
+    map.set('Wall of Light', new Spell(36, 4.5, 5, true)); //DoT, but requires your action every turn
     map.set('Wall of Thorns', new Spell(31.5, 4.5, 6, true)); //only inital damage 7d8, passing through the wall does 7d8
     map.set('Weird', new Spell(22, 0, 9, true));
-    map.set('Whirlwind', new Spell(35, 0, 7, true)); //DoT
+    map.set('Whirlwind', new DoTSpell(7, true, new Spell(35, 0, 7, true), new Spell(35, 0, 7, true))); //DoT
     map.set('Wind Wall', new Spell(13.5, 0, 3, true));
-    map.set('Witch Bolt', new Spell(6.5, 6.5, 1, false)); //DoT
-    map.set('Wrath of Nature', new Spell(41.5, 0, 5, false)); //DoT, 4d6 AoE, 3d8 single target
+    map.set('Witch Bolt', new Spell(6.5, 6.5, 1, false)); //DoT, but requires your action every turn
+    map.set('Wrath of Nature', new DoTSpell(5, true, new Spell(41.5, 0, 5, false), new Spell(41.5, 0, 5, false))); //DoT, 4d6 AoE, 3d8 single target
     map.set('Thunderous Smite', new Spell(3.5, 0, 1, false));
     map.set('Zephyr Strike', new Spell(4.5, 0, 1, false));
 }

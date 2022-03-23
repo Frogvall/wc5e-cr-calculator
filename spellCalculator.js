@@ -34,15 +34,26 @@ class ComplexSpell extends Spell {
     }
 
     calcDamage(spellSlotUsed, currentRound) {
-        return this.damageFormula(spellSlotUsed)
+        return this.damageFormula(spellSlotUsed);
+    }
+}
+
+class ModifierDependentCantrip extends Cantrip {
+    constructor(damageFormula) {
+        super(0, 0, false);
+        this.damageFormula = damageFormula
+    }
+
+    calcDamage(spellSlotUsed, currentRound) {
+        return this.damageFormula(getSpellCastingModifier(), getSpellCasterLevelModification());
     }
 }
 
 class DoTSpell extends Spell {
     constructor(spellSlot, concentration, round0, round1, round2) {
         super(0, 0, spellSlot, false, concentration);
-        if (round2 === undefined) round2 =  new Spell(0, 0, 0, false, false)
-        this.spells = [round0, round1, round2]
+        if (round2 === undefined) round2 =  new Spell(0, 0, 0, false, false);
+        this.spells = [round0, round1, round2];
     }
 
 
@@ -67,6 +78,10 @@ Map.prototype.addSpells = function() {
 function getSpellCasterLevelModification() {
     let casterLevel = parseInt(document.getElementById('scl').value);
     return Math.floor((casterLevel+1)/6);    
+}
+
+function getSpellCastingModifier() {
+    return parseInt(document.getElementById('scm').value); 
 }
 
 let spellMap = null;
