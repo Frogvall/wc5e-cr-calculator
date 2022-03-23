@@ -68,7 +68,7 @@ function fillOut(_valueString) {
   }
   addSpellsToSelect();
   let spellNames = [values.length-spellStartIndex];
-  for (i = spellStartIndex; i < values.length; i++) {
+  for (var i = spellStartIndex; i < values.length; i++) {
     spellNames[i-spellStartIndex] = decodeURIComponent(values[i]);
   }
   select.set(spellNames);
