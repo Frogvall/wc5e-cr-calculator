@@ -60,11 +60,16 @@ function fillOut(_valueString) {
     document.getElementById("coa").checked = values[51] == "1" && values[50] != "1";
     document.getElementById("wotc").checked = values[52] == "1";
     spellStartIndex = 53;
-  }
-  else {
+  } else {
     document.getElementById("wc5e").checked = 1;
     document.getElementById("coa").checked = 0;
-    document.getElementById("wotc").checked = 1;  
+    document.getElementById("wotc").checked = 1;
+  }
+  if (values.length > 53 && /^-?\d+$/.test(values[53])) {
+    document.getElementById("scm").value = values[53];
+    spellStartIndex = 54;
+  } else {
+    document.getElementById("scm").value = 3;
   }
   addSpellsToSelect();
   let spellNames = [values.length-spellStartIndex];
@@ -182,6 +187,8 @@ function generateUrl() {
     (document.getElementById("coa").checked ? "1" : "0")
     + ";" +
     (document.getElementById("wotc").checked ? "1" : "0")
+    + ";" +
+    document.getElementById("scm").value
     + ";" +
     select.selected().join(';')
     ;
@@ -615,7 +622,7 @@ function Calculate() // Begins main CR calculation
       DCR += Math.floor(Math.abs(AC - 13) / 2);
       adjAC = " (+" + Math.floor(Math.abs(AC - 13) / 2) + " CR)"
     } else {
-      adjAC = " (+0 CR)" 
+      adjAC = " (+0 CR)"
     }
   } else if ((AC - expectedAC) > -2) {
     DCR += Math.floor(Math.abs(AC - expectedAC) / 2);
