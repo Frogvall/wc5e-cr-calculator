@@ -1,34 +1,73 @@
 class Spell {
-    constructor(baseDamage, scalingDamage, spellSlot, aoe) {
+    constructor(baseDamage, scalingDamage, spellSlot, aoe, concentration) {
         this.baseDamage = baseDamage;
         this.scalingDamage = scalingDamage;
         this.spellSlot = spellSlot;
         this.aoe = aoe;
+        this.concentration = (concentration === undefined ? false : concentration)
     }
 
-    calcDamage(spellSlotUsed) {
+    calcDamage(spellSlotUsed, currentRound) {
         return Math.floor(this.baseDamage + (spellSlotUsed - this.spellSlot) * this.scalingDamage) * (this.aoe ? 2 : 1);
+    }
+
+    calcDamageByRound(spellSlotUsed, round) {
+        if (round == 0) return this.calcDamage(spellSlotUsed);
+        return 0
     }
 }
 
 class Cantrip extends Spell {
     constructor(baseDamage, scalingDamage, aoe) {
-        super(baseDamage, scalingDamage, 0, aoe);
+        super(baseDamage, scalingDamage, 0, aoe, false);
     }
 
-    calcDamage(spellSlotUsed) {
+    calcDamage(spellSlotUsed, currentRound) {
         return Math.floor(this.baseDamage + this.scalingDamage * getSpellCasterLevelModification()) * (this.aoe ? 2 : 1);
     }
 }
 
 class ComplexSpell extends Spell {
     constructor(spellSlot, damageFormula) {
-        super(0, 0, spellSlot, false);
+        super(0, 0, spellSlot, false, false);
         this.damageFormula = damageFormula;
     }
 
-    calcDamage(spellSlotUsed) {
-        return this.damageFormula(spellSlotUsed)
+    calcDamage(spellSlotUsed, currentRound) {
+        return this.damageFormula(spellSlotUsed);
+    }
+}
+
+class ModifierDependentCantrip extends Cantrip {
+    constructor(damageFormula) {
+        super(0, 0, false);
+        this.damageFormula = damageFormula
+    }
+
+    calcDamage(spellSlotUsed, currentRound) {
+        return this.damageFormula(getSpellCastingModifier(), getSpellCasterLevelModification());
+    }
+}
+
+class DoTSpell extends Spell {
+    constructor(spellSlot, concentration, round0, round1, round2) {
+        super(0, 0, spellSlot, false, concentration);
+        if (round2 === undefined) round2 =  new Spell(0, 0, 0, false, false);
+        this.spells = [round0, round1, round2];
+    }
+
+
+    calcDamage(spellSlotUsed, currentRound) {
+        let damage = 0;
+        for (var i = 0; i < 3-currentRound; i++) {
+            damage += this.spells[i].calcDamage(spellSlotUsed, null);
+          }
+        return damage;
+    }
+
+    calcDamageByRound(spellSlotUsed, round) {
+        if (round > 2 || round < 0) return 0;
+        return this.spells[round].calcDamage(spellSlotUsed, null)
     }
 }
 
@@ -39,6 +78,10 @@ Map.prototype.addSpells = function() {
 function getSpellCasterLevelModification() {
     let casterLevel = parseInt(document.getElementById('scl').value);
     return Math.floor((casterLevel+1)/6);    
+}
+
+function getSpellCastingModifier() {
+    return parseInt(document.getElementById('scm').value); 
 }
 
 let spellMap = null;
@@ -106,20 +149,26 @@ function calculateSpellDamage() {
     if (!select) return setSpellDamage([0,0,0],["","",""]);
     let spells = select.selected();
     if (spells.length == 0) return setSpellDamage([0,0,0],["","",""]);
-    let dmgArray = [3];
-    let usedArray = [3];
-    for (i = 0; i < 3; i++) {
+    let dmgArray = [0, 0, 0];
+    let usedArray = ["", "", ""];
+    for (var i = 0; i < 3; i++) {
         let dmg = 0;
         let spellUsed = "";
         spells.forEach(spellName => {
             let spell = spellMap.get(spellName);
-            if (spell.spellSlot <= spellSlots[i] && (spelldmg = spell.calcDamage(spellSlots[i])) > dmg) {
+            if (spell.spellSlot <= spellSlots[i] && (spelldmg = spell.calcDamage(spellSlots[i], i)) > dmg) {
                 dmg = spelldmg;
                 spellUsed = spellName;
             }
         });
-        dmgArray[i] = dmg;
-        usedArray[i] = spellUsed;
+        let spell = spellMap.get(spellUsed)
+
+        for (var j = 0; j < 3-i; j++) {
+            if ((spellDamage = spell.calcDamageByRound(spellSlots[i], j)) > 0) {
+                dmgArray[i+j] += spellDamage;
+                usedArray[i+j] = `${spellUsed} (${((j == 0) ? "" : "DoT, ")}${spellDamage})${((usedArray[i+j] == "") ? "" : " + ")}${usedArray[i+j]}`;
+            }
+        }
     }
     setSpellDamage(dmgArray, usedArray);
 }
