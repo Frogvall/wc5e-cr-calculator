@@ -142,7 +142,7 @@ function addSpellsToSelect() {
     spellMap = new Map().addSpells();
     select = new SlimSelect({
         select: '#spellsSelect',
-        data: spellListSelectNoCantrips(),
+        data: spellListSelect(),
         onChange: function() {calculateSpellDamage();}
     });
     iSelect1 = new SlimSelect({
@@ -234,17 +234,11 @@ function transferDamage() {
     let rnd2 = document.getElementById("spellDmg2").innerHTML;
     let rnd3 = document.getElementById("spellDmg3").innerHTML;
     document.getElementById("pDmg1").value = rnd1;
-    document.getElementById("sDmg1").value = 0;
     document.getElementById("pDmg2").value = rnd2;
-    document.getElementById("sDmg2").value = 0;
     document.getElementById("pDmg3").value = rnd3;
-    document.getElementById("sDmg3").value = 0;
     document.getElementById("pDmg4").value = 0;
-    document.getElementById("sDmg4").value = 0;
     document.getElementById("pDmg5").value = 0;
-    document.getElementById("sDmg5").value = 0;
     document.getElementById("pDmg6").value = 0;
-    document.getElementById("sDmg6").value = 0;
     Calculate();
     return false;
 }
