@@ -86,6 +86,9 @@ function getSpellCastingModifier() {
 
 let spellMap = null;
 let select = null;
+let iSelect1 = null;
+let iSelect2 = null;
+let iSelect3 = null;
 
 function calculateSpellList(clickedCheckbox) {
     if (document.getElementById(clickedCheckbox).checked) {
@@ -120,11 +123,41 @@ function spellListSelect() {
 ];
 }
 
+function spellListSelectNoCantrips() {
+    spellArray = Array.from(spellMap.keys(), x => {return {value: x, text: x}});
+    return [
+        { label: 'Level 1', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 1) },
+        { label: 'Level 2', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 2) },
+        { label: 'Level 3', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 3) },
+        { label: 'Level 4', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 4) },
+        { label: 'Level 5', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 5) },
+        { label: 'Level 6', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 6) },
+        { label: 'Level 7', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 7) },
+        { label: 'Level 8', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 8) },
+        { label: 'Level 9', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 9) },
+];
+}
+
 function addSpellsToSelect() {
     spellMap = new Map().addSpells();
     select = new SlimSelect({
         select: '#spellsSelect',
-        data: spellListSelect(),
+        data: spellListSelectNoCantrips(),
+        onChange: function() {calculateSpellDamage();}
+    });
+    iSelect1 = new SlimSelect({
+        select: '#innateSpellsSelect1',
+        data: spellListSelectNoCantrips(),
+        onChange: function() {calculateSpellDamage();}
+    });
+    iSelect2 = new SlimSelect({
+        select: '#innateSpellsSelect2',
+        data: spellListSelectNoCantrips(),
+        onChange: function() {calculateSpellDamage();}
+    });
+    iSelect3 = new SlimSelect({
+        select: '#innateSpellsSelect3',
+        data: spellListSelectNoCantrips(),
         onChange: function() {calculateSpellDamage();}
     });
 }
@@ -132,6 +165,9 @@ function addSpellsToSelect() {
 function updateSpellsInSelect() {
     spellMap = new Map().addSpells();
     select.setData(spellListSelect());
+    iSelect1.setData(spellListSelect());
+    iSelect2.setData(spellListSelect());
+    iSelect3.setData(spellListSelect());
 }
 
 function setSpellDamage(dmgArray, spellArray) {
@@ -148,12 +184,15 @@ function calculateSpellDamage() {
     let spellSlots = [parseInt(document.getElementById("ss1").value), parseInt(document.getElementById("ss2").value), parseInt(document.getElementById("ss3").value)];
     if (!select) return setSpellDamage([0,0,0],["","",""]);
     let spells = select.selected();
-    if (spells.length == 0) return setSpellDamage([0,0,0],["","",""]);
+    let innateSpells = iSelect1.selected().concat(iSelect2.selected(), iSelect2.selected(), iSelect3.selected(), iSelect3.selected(), iSelect3.selected());
+    if (spells.length == 0 && innateSpells.length == 0) return setSpellDamage([0,0,0],["","",""]);
     let dmgArray = [0, 0, 0];
     let usedArray = ["", "", ""];
     for (var i = 0; i < 3; i++) {
+        if (spells.length == 0 && innateSpells.length == 0) break;
         let dmg = 0;
         let spellUsed = "";
+        let innate = false;
         spells.forEach(spellName => {
             let spell = spellMap.get(spellName);
             if (spell.spellSlot <= spellSlots[i] && (spelldmg = spell.calcDamage(spellSlots[i], i)) > dmg) {
@@ -161,13 +200,30 @@ function calculateSpellDamage() {
                 spellUsed = spellName;
             }
         });
+
+        innateSpells.forEach(spellName => {
+            let spell = spellMap.get(spellName)
+            let slot = spell.spellSlot
+            if ((spelldmg = spell.calcDamage(slot, i)) > dmg) {
+                dmg = spelldmg;
+                spellUsed = spellName;
+                innate = true
+            }
+        })
+
         let spell = spellMap.get(spellUsed)
 
         for (var j = 0; j < 3-i; j++) {
-            if ((spellDamage = spell.calcDamageByRound(spellSlots[i], j)) > 0) {
+            let slot = innate ? spell.spellSlot : spellSlots[i];
+            if ((spellDamage = spell.calcDamageByRound(slot, j)) > 0) {
                 dmgArray[i+j] += spellDamage;
-                usedArray[i+j] = `${spellUsed} (${((j == 0) ? "" : "DoT, ")}${spellDamage})${((usedArray[i+j] == "") ? "" : " + ")}${usedArray[i+j]}`;
+                usedArray[i+j] = `${spellUsed}${innate ? " (Innate) " : ""}(${((j == 0) ? "" : "DoT, ")}${spellDamage})${((usedArray[i+j] == "") ? "" : " + ")}${usedArray[i+j]}`;
             }
+        }
+
+        if (innate) {
+            let index = innateSpells.indexOf(spellUsed);
+            innateSpells.splice(index, 1);
         }
     }
     setSpellDamage(dmgArray, usedArray);

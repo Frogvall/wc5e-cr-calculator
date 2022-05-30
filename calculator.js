@@ -72,11 +72,37 @@ function fillOut(_valueString) {
     document.getElementById("scm").value = 3;
   }
   addSpellsToSelect();
-  let spellNames = [values.length-spellStartIndex];
-  for (var i = spellStartIndex; i < values.length; i++) {
-    spellNames[i-spellStartIndex] = decodeURIComponent(values[i]);
+  let is1 = values.indexOf('is1');
+  let is2 = values.indexOf('is2');
+  let is3 = values.indexOf('is3');
+  if (is1 == -1) {
+    let spellNames = [values.length-spellStartIndex];
+    for (var i = spellStartIndex; i < values.length; i++) {
+      spellNames[i-spellStartIndex] = decodeURIComponent(values[i]);
+    }
+    select.set(spellNames);
+  } else {
+    let spellNames = [is1-spellStartIndex];
+    for (var i = spellStartIndex; i < is1; i++) {
+      spellNames[i-spellStartIndex] = decodeURIComponent(values[i]);
+    }
+    select.set(spellNames);
+    spellNames = [is2-is1-1];
+    for (var i = is1+1; i < is2; i++) {
+      spellNames[i-is1-1] = decodeURIComponent(values[i]);
+    }
+    iSelect1.set(spellNames);
+    spellNames = [is3-is2-1];
+    for (var i = is2+1; i < is3; i++) {
+      spellNames[i-is2-1] = decodeURIComponent(values[i]);
+    }
+    iSelect2.set(spellNames);
+    spellNames = [values.length-is3-1];
+    for (var i = is3+1; i < values.length; i++) {
+      spellNames[i-is3-1] = decodeURIComponent(values[i]);
+    }
+    iSelect3.set(spellNames);
   }
-  select.set(spellNames);
   calculateSpellDamage();
   Calculate();
 }
@@ -191,6 +217,12 @@ function generateUrl() {
     document.getElementById("scm").value
     + ";" +
     select.selected().join(';')
+    + ';is1;' +
+    iSelect1.selected().join(';')
+    + ';is2;' +
+    iSelect2.selected().join(';')
+    + ';is3;' +
+    iSelect3.selected().join(';')
     ;
   return valueString;
 }
