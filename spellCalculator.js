@@ -123,26 +123,41 @@ function spellListSelect() {
 ];
 }
 
+function spellListSelectNoCantrips() {
+    spellArray = Array.from(spellMap.keys(), x => {return {value: x, text: x}});
+    return [
+        { label: 'Level 1', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 1) },
+        { label: 'Level 2', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 2) },
+        { label: 'Level 3', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 3) },
+        { label: 'Level 4', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 4) },
+        { label: 'Level 5', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 5) },
+        { label: 'Level 6', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 6) },
+        { label: 'Level 7', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 7) },
+        { label: 'Level 8', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 8) },
+        { label: 'Level 9', options: spellArray.filter(spellName => spellMap.get(spellName.text).spellSlot == 9) },
+];
+}
+
 function addSpellsToSelect() {
     spellMap = new Map().addSpells();
     select = new SlimSelect({
         select: '#spellsSelect',
-        data: spellListSelect(),
+        data: spellListSelectNoCantrips(),
         onChange: function() {calculateSpellDamage();}
     });
     iSelect1 = new SlimSelect({
         select: '#innateSpellsSelect1',
-        data: spellListSelect(),
+        data: spellListSelectNoCantrips(),
         onChange: function() {calculateSpellDamage();}
     });
     iSelect2 = new SlimSelect({
         select: '#innateSpellsSelect2',
-        data: spellListSelect(),
+        data: spellListSelectNoCantrips(),
         onChange: function() {calculateSpellDamage();}
     });
     iSelect3 = new SlimSelect({
         select: '#innateSpellsSelect3',
-        data: spellListSelect(),
+        data: spellListSelectNoCantrips(),
         onChange: function() {calculateSpellDamage();}
     });
 }
