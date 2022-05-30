@@ -174,6 +174,7 @@ function calculateSpellDamage() {
     let dmgArray = [0, 0, 0];
     let usedArray = ["", "", ""];
     for (var i = 0; i < 3; i++) {
+        if (spells.length == 0 && innateSpells.length == 0) break;
         let dmg = 0;
         let spellUsed = "";
         let innate = false;
