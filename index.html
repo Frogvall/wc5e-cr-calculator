@@ -2,6 +2,7 @@
 <link rel="shortcut icon" href="warcraft.ico" type="image/x-icon"/>
 <link rel="stylesheet" href="style.min.css" type="text/css"/>
 <title>Warcraft CR Calculator</title>
+<script type="text/javascript" src="math.min.js"></script>
 <script type="text/javascript" src="slimselect.min.js"></script>
 <link type="text/css" href="slimselect.min.css" rel="stylesheet"/>
 <script type="text/javascript" src="spells.min.js"></script>
@@ -118,7 +119,7 @@
             <tr>
               <td class="innerCellS" colspan="2" title="+effective HP depending on Target CR Range for each use">
                 <label for="legendaryResistance"><input id="legendaryResistance" type="checkbox"
-                    onclick="Calculate()">&nbsp;Legendary&nbsp;Resist.; uses=</label> <input class="smallNumberIn"
+                    onclick="Calculate()">&nbsp;Legendary&nbsp;Resist; uses=</label> <input class="smallNumberIn"
                   id="legendaryResistanceUses" type="number" value="1" disabled="true" onclick="Calculate()"
                   onchange="Calculate()">
               </td>
@@ -209,14 +210,14 @@
       </tr>
       <tr>
         <td class="labelCell">Actual AC:</td>
-        <td class="inputCell"><input class="numberIn" id="actualAC" type="number" value="13" onchange="Calculate()"
+        <td class="inputCell"><input class="numberIn" id="actualAC" type="string" value="13" onchange="Calculate()"
             onclick="Calculate()"></td>
         <td class="labelCell">Effective AC:</td>
         <td class="calculatedCell" id="effectiveAC">13</td>
       </tr>
       <tr>
         <td class="labelCell">Actual HP:</td>
-        <td class="inputCell"><input class="numberIn" id="actualHP" type="number" value="75" onchange="Calculate()"
+        <td class="inputCell"><input class="numberIn" id="actualHP" type="string" value="75" onchange="Calculate()"
             onclick="Calculate()"></td>
         <td class="labelCell">Effective HP:</td>
         <td class="calculatedCell" id="effectiveHP">75</td>
@@ -247,57 +248,44 @@
         <td class="tableCell" colspan="2">
           <table class="choiceTable">
             <tr>
-              <td class="smallSubHeader">Round</td>
-              <td class="smallSubHeader">Primary Damage</td>
-              <td class="smallSubHeader">Secondary Damage</td>
-              <td class="smallSubHeader">Damage by Round</td>
+              <td class="smallSubHeader" colspan="1">Round</td>
+              <td class="smallSubHeader" colspan="2">Damage</td>
+              <td class="smallSubHeader" colspan="1">Damage by Round</td>
             </tr>
             <tr>
               <td class="smallLabelCell">1</td>
-              <td class="innerCell"><input class="smallNumberIn" id="pDmg1" type="number" value="5"
-                  onchange="Calculate()" onclick="Calculate()"></td>
-              <td class="innerCell"><input class="smallNumberIn" id="sDmg1" type="number" value="5"
+              <td class="innerCell" colspan="2"><input class="doubleNumberIn" id="pDmg1" type="string" value="5+5"
                   onchange="Calculate()" onclick="Calculate()"></td>
               <td class="smallCalculatedCell" id="rndDmg1">10</td>
             </tr>
             <tr>
               <td class="smallLabelCell">2</td>
-              <td class="innerCell"><input class="smallNumberIn" id="pDmg2" type="number" value="0"
-                  onchange="Calculate()" onclick="Calculate()"></td>
-              <td class="innerCell"><input class="smallNumberIn" id="sDmg2" type="number" value="0"
-                  onchange="Calculate()" onclick="Calculate()"></td>
+              <td class="innerCell" colspan="2"><input class="doubleNumberIn" id="pDmg2" type="string" value="0"
+                onchange="Calculate()" onclick="Calculate()"></td>
               <td class="smallCalculatedCell" id="rndDmg2">0</td>
             </tr>
             <tr>
               <td class="smallLabelCell">3</td>
-              <td class="innerCell"><input class="smallNumberIn" id="pDmg3" type="number" value="0"
-                  onchange="Calculate()" onclick="Calculate()"></td>
-              <td class="innerCell"><input class="smallNumberIn" id="sDmg3" type="number" value="0"
-                  onchange="Calculate()" onclick="Calculate()"></td>
+              <td class="innerCell" colspan="2"><input class="doubleNumberIn" id="pDmg3" type="string" value="0"
+                onchange="Calculate()" onclick="Calculate()"></td>
               <td class="smallCalculatedCell" id="rndDmg3">0</td>
             </tr>
             <tr>
               <td class="smallLabelCell">4</td>
-              <td class="innerCell"><input class="smallNumberIn" id="pDmg4" type="number" value="0"
-                  onchange="Calculate()" onclick="Calculate()"></td>
-              <td class="innerCell"><input class="smallNumberIn" id="sDmg4" type="number" value="0"
-                  onchange="Calculate()" onclick="Calculate()"></td>
+              <td class="innerCell" colspan="2"><input class="doubleNumberIn" id="pDmg4" type="string" value="0"
+                onchange="Calculate()" onclick="Calculate()"></td>
               <td class="smallCalculatedCell" id="rndDmg4">0</td>
             </tr>
             <tr>
               <td class="smallLabelCell">5</td>
-              <td class="innerCell"><input class="smallNumberIn" id="pDmg5" type="number" value="0"
-                  onchange="Calculate()" onclick="Calculate()"></td>
-              <td class="innerCell"><input class="smallNumberIn" id="sDmg5" type="number" value="0"
-                  onchange="Calculate()" onclick="Calculate()"></td>
+              <td class="innerCell" colspan="2"><input class="doubleNumberIn" id="pDmg5" type="string" value="0"
+                onchange="Calculate()" onclick="Calculate()"></td>
               <td class="smallCalculatedCell" id="rndDmg5">0</td>
             </tr>
             <tr>
               <td class="smallLabelCell">6</td>
-              <td class="innerCell"><input class="smallNumberIn" id="pDmg6" type="number" value="0"
-                  onchange="Calculate()" onclick="Calculate()"></td>
-              <td class="innerCell"><input class="smallNumberIn" id="sDmg6" type="number" value="0"
-                  onchange="Calculate()" onclick="Calculate()"></td>
+              <td class="innerCell" colspan="2"><input class="doubleNumberIn" id="pDmg6" type="string" value="0"
+                onchange="Calculate()" onclick="Calculate()"></td>
               <td class="smallCalculatedCell" id="rndDmg6">0</td>
             </tr>
             <tr>
@@ -338,14 +326,15 @@
     <div id="tutLink">
       <center><a onclick="popup('tutorial')" title="Click to learn more">What is this, and how do I use it?</a></center>
     </div>
-    <div id="versionInfo">v.5.0<br/><br/>Known Issues:<br/><ul><li>Spell calculator does not take concentration into account when selecting spells.</li></ul></div>
+    <div id="versionInfo">v.6.0<br/><br/>Known Issues:<br/><ul><li>Spell calculator does not take concentration into account when selecting spells.</li></ul></div>
     <div id="credits">Credits: I did not originally write this code. The code was written by <a href=https://www.reddit.com/user/ItsADnDMonsterNow>/u/ItsADnDMonsterNow</a> and can be found
       <a href=https://iadndmn.neocities.org/CRcalc.html>here</a>. I modified the code to take our modfied monster
       table into account and added code for generating calculations from url, as well as fixing several bugs oriented around CR &lt; 1.
-    <br/>With 2.0, I also added a spell damage calculator. Spell list with damage values was originally made by <a href=https://github.com/AceAzzermeen>AceAzzermeen</a>.
-    <br/>With 3.0, I also added Champion of Azeroth spells to the spell calculator.
-    <br/>With 4.0, I also added support for damage over time in the spell calculator.
-    <br/>With 5.0, I also added support for innate spellcasting in the spell calculator.
+    <br/>With 2.0, I added a spell damage calculator. Spell list with damage values was originally made by <a href=https://github.com/AceAzzermeen>AceAzzermeen</a>.
+    <br/>With 3.0, I added Champion of Azeroth spells to the spell calculator.
+    <br/>With 4.0, I added support for damage over time in the spell calculator.
+    <br/>With 5.0, I added support for innate spellcasting in the spell calculator.
+    <br/>With 6.0, I added support for mathematical expressions in some fields.
     <br/>Source code can be found <a href=https://github.com/Frogvall/wc5e-cr-calculator>here</a>.</div>
     <!-- INPUT TABLE ENDS -->
     <!-- SPELLS TABLE BEINGS -->
