@@ -239,18 +239,34 @@
 
   .numberIn {
     width: 100%;
+    border: none
   }
 
   .shortNumberIn {
     width: 92%;
+    border: none
   }
 
   .smallNumberIn {
     width: 60px;
   }
 
-  .doubleNumberIn {
+  .iconNumberIn {
+    width: 100%;
+    padding-right: 15px;
+    background: url("plus-minus-solid.svg") no-repeat;
+    background-size: 10px;
+    background-position: 95% center;
+    border: none;
+  }
+
+  .doubleIconNumberIn {
     width: 120px;
+    padding-right: 15px;
+    background: url("plus-minus-solid.svg") no-repeat;
+    background-size: 10px;
+    background-position: 105px center;
+    border: none
   }
 
   .select {
