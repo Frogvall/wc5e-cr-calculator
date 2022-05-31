@@ -216,15 +216,17 @@ function calculateSpellDamage() {
             }
         })
 
-        let spell = spellMap.get(spellUsed)
+        if (dmg > 0) {
+            let spell = spellMap.get(spellUsed)
 
-        for (var j = 0; j < 3-i; j++) {
-            let slot = innate ? spell.spellSlot : spellSlots[i];
-            if ((spellDamage = spell.calcDamageByRound(slot, j)) > 0) {
-                dmgArray[i+j] += spellDamage;
-                usedArray[i+j] = `${spellUsed}${innate ? " (Innate) " : ""}(${((j == 0) ? "" : "DoT, ")}${spellDamage})${((usedArray[i+j] == "") ? "" : " + ")}${usedArray[i+j]}`;
+            for (var j = 0; j < 3-i; j++) {
+                let slot = innate ? spell.spellSlot : spellSlots[i];
+                if ((spellDamage = spell.calcDamageByRound(slot, j)) > 0) {
+                    dmgArray[i+j] += spellDamage;
+                    usedArray[i+j] = `${spellUsed}${innate ? " (Innate)" : ""} (${((j == 0) ? "" : "DoT, ")}${spellDamage})${((usedArray[i+j] == "") ? "" : " + ")}${usedArray[i+j]}`;
+                }
             }
-        }
+        } 
 
         if (innate) {
             let index = innateSpells.indexOf(spellUsed);
