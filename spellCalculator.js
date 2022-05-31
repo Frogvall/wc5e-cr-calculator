@@ -100,9 +100,14 @@ function calculateSpellList(clickedCheckbox) {
         }
     }
     let selectedSpells = select?.selected();
+    let iSelectedSpells1 = iSelect1?.selected();
+    let iSelectedSpells2 = iSelect2?.selected();
+    let iSelectedSpells3 = iSelect3?.selected();
     updateSpellsInSelect()
-    if (selectedSpells)
-        select.set(selectedSpells);
+    if (selectedSpells) select.set(selectedSpells);
+    if (iSelectedSpells1) iSelect1.set(iSelectedSpells1);
+    if (iSelectedSpells2) iSelect2.set(iSelectedSpells2);
+    if (iSelectedSpells3) iSelect3.set(iSelectedSpells3);
     calculateSpellDamage()
     Calculate()
 }
@@ -165,9 +170,9 @@ function addSpellsToSelect() {
 function updateSpellsInSelect() {
     spellMap = new Map().addSpells();
     select.setData(spellListSelect());
-    iSelect1.setData(spellListSelect());
-    iSelect2.setData(spellListSelect());
-    iSelect3.setData(spellListSelect());
+    iSelect1.setData(spellListSelectNoCantrips());
+    iSelect2.setData(spellListSelectNoCantrips());
+    iSelect3.setData(spellListSelectNoCantrips());
 }
 
 function setSpellDamage(dmgArray, spellArray) {
