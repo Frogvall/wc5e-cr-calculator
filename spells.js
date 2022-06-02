@@ -47,7 +47,7 @@ function addCoASpells(map) {
 
     // Leveled
 
-    map.set('Agony', new Spell(3.5, 3.5, 1, false));
+    map.set('Agony', new DoTSpell(1, true, new Spell(3.5, 3.5, 1, false), new Spell(3.5, 3.5, 1, false))); //DoT
     map.set('Arcane Barrage', new Spell(30, 10, 3, false));
     map.set('Arcane Explosion', new Spell(11, 5.5, 2, true));
     map.set('Blast Wave', new Spell(18, 4.5, 6, true));
