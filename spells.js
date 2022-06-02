@@ -42,7 +42,7 @@ function addCoASpells(map) {
     map.set('Chilling Blade (4d12)', new Cantrip(30.5, 9, false));
     map.set('Lightning Strike', new Cantrip(4.5, 4.5, false));
     map.set('Mind Flay', new Cantrip(4.5, 4.5, false));
-    map.set('Shadowbolt', new Cantrip(4.5, 4.5, false));
+    map.set('Shadow Bolt', new Cantrip(4.5, 4.5, false));
     map.set('Wrath', new Cantrip(4.5, 4.5, false));
 
     // Leveled
