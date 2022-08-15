@@ -407,7 +407,7 @@ function DCRbyHP(_hp) {
 }
 function ACforHPCR(_hpcr) {
   if (_hpcr <= -3) {
-    return Math.min(Math.round(math.evaluate(document.getElementById("actualAC").value)), 13);
+    return Math.min(Math.floor(math.evaluate(document.getElementById("actualAC").value)), 13);
   } else if (_hpcr < 3) {
     return 13;
   } else if (_hpcr < 5) {
@@ -573,7 +573,7 @@ function Calculate() // Begins main CR calculation
   }
 
   //CALCULATE AC â€” check the 'Actual AC' input and modify it according to all applicable traits, etc., then store & output as 'effective AC'
-  var AC = Math.round(math.evaluate(document.getElementById("actualAC").value));
+  var AC = Math.floor(math.evaluate(document.getElementById("actualAC").value));
   var effAC = document.getElementById("effectiveAC");
   if (document.getElementById("flySpeedAndRangedAttack").checked && tier <= 2) { AC += 2; }
   document.getElementById("savingThrowProficiencyCount").disabled = true;
@@ -595,7 +595,7 @@ function Calculate() // Begins main CR calculation
   effAC.innerHTML = AC;
 
   //CALCULATE HP â€” check the 'actual HP' input and modify it according to applicable traits/tier/etc., then store & output as 'effective HP'
-  var HP = Math.round(math.evaluate(document.getElementById("actualHP").value));
+  var HP = Math.floor(math.evaluate(document.getElementById("actualHP").value));
   var effHP = document.getElementById("effectiveHP");
   var hpMult = 1;   // This variable represents that different HP multipliers should be additive, not multiplicative (i.e. "+100%" and "+100%" equals "+200%", as opposed to "x2" and "x2" equals "x4")
   switch (tier) {   // check CR "tier", then adjust any modifiers for dmg resistance/immunity accordingly.
@@ -674,7 +674,7 @@ function Calculate() // Begins main CR calculation
   if (document.getElementById("aggressive").checked) { aggDmg = 2; }
   if (document.getElementById("damageTransfer").checked) { dmgTransferDmg = Math.floor(Math.round(math.evaluate(document.getElementById("actualHP").value)) / 3); }
   if (document.getElementById("rampage").checked) { rmpgDmg = 2; }
-  var dmg1 = Math.round(math.evaluate(document.getElementById("pDmg1").value));
+  var dmg1 = Math.floor(math.evaluate(document.getElementById("pDmg1").value));
   if (dmg1 > 0) {
     dmg1 += aggDmg + dmgTransferDmg + rmpgDmg;
     rounds++;
@@ -682,7 +682,7 @@ function Calculate() // Begins main CR calculation
     dmg1 = 0;
   }
   document.getElementById("rndDmg1").innerHTML = dmg1;
-  var dmg2 = Math.round(math.evaluate(document.getElementById("pDmg2").value));
+  var dmg2 = Math.floor(math.evaluate(document.getElementById("pDmg2").value));
   if (dmg2 > 0) {
     dmg2 += aggDmg + dmgTransferDmg + rmpgDmg;
     rounds++;
@@ -690,7 +690,7 @@ function Calculate() // Begins main CR calculation
     dmg2 = 0;
   }
   document.getElementById("rndDmg2").innerHTML = dmg2;
-  var dmg3 = Math.round(math.evaluate(document.getElementById("pDmg3").value));
+  var dmg3 = Math.floor(math.evaluate(document.getElementById("pDmg3").value));
   if (dmg3 > 0) {
     dmg3 += aggDmg + dmgTransferDmg + rmpgDmg;
     rounds++;
@@ -698,7 +698,7 @@ function Calculate() // Begins main CR calculation
     dmg3 = 0;
   }
   document.getElementById("rndDmg3").innerHTML = dmg3;
-  var dmg4 = Math.round(math.evaluate(document.getElementById("pDmg4").value));
+  var dmg4 = Math.floor(math.evaluate(document.getElementById("pDmg4").value));
   if (dmg4 > 0) {
     dmg4 += aggDmg + dmgTransferDmg + rmpgDmg;
     rounds++;
@@ -706,7 +706,7 @@ function Calculate() // Begins main CR calculation
     dmg4 = 0;
   }
   document.getElementById("rndDmg4").innerHTML = dmg4;
-  var dmg5 = Math.round(math.evaluate(document.getElementById("pDmg5").value));
+  var dmg5 = Math.floor(math.evaluate(document.getElementById("pDmg5").value));
   if (dmg5 > 0) {
     dmg5 += aggDmg + dmgTransferDmg + rmpgDmg;
     rounds++;
@@ -714,7 +714,7 @@ function Calculate() // Begins main CR calculation
     dmg5 = 0;
   }
   document.getElementById("rndDmg5").innerHTML = dmg5;
-  var dmg6 =  Math.round(math.evaluate(document.getElementById("pDmg6").value));
+  var dmg6 =  Math.floor(math.evaluate(document.getElementById("pDmg6").value));
   if (dmg6 > 0) {
     dmg6 += aggDmg + dmgTransferDmg + rmpgDmg;
     rounds++; 
