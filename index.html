@@ -210,15 +210,15 @@
       </tr>
       <tr>
         <td class="labelCell">Actual AC:</td>
-        <td class="inputCell"><input class="iconNumberIn" id="actualAC" type="string" value="13" onchange="Calculate()"
+        <td class="inputCell"><input class="mathNumberIn" id="actualAC" type="string" value="13" onchange="Calculate()"
             onclick="Calculate()" title="This is a field that accepts mathematical expressions."></td>
         <td class="labelCell">Effective AC:</td>
         <td class="calculatedCell" id="effectiveAC">13</td>
       </tr>
       <tr>
         <td class="labelCell">Actual HP:</td>
-        <td class="inputCell"><input class="iconNumberIn" id="actualHP" type="string" value="75" onchange="Calculate()"
-            onclick="Calculate()" title="This is a field that accepts mathematical expressions."></td>
+        <td class="inputCell"><input class="diceNumberIn" id="actualHP" type="string" value="75" onchange="Calculate()"
+            onclick="Calculate()" title="This is a field that accepts dice expressions."></td>
         <td class="labelCell">Effective HP:</td>
         <td class="calculatedCell" id="effectiveHP">75</td>
       </tr>
@@ -254,38 +254,38 @@
             </tr>
             <tr>
               <td class="smallLabelCell">1</td>
-              <td class="innerCell" colspan="2"><input class="doubleIconNumberIn" id="pDmg1" type="string" value="5+5"
-                  onchange="Calculate()" onclick="Calculate()" title="This is a field that accepts mathematical expressions."></td>
+              <td class="innerCell" colspan="2"><input class="doubleDiceNumberIn" id="pDmg1" type="string" value="5+5"
+                  onchange="Calculate()" onclick="Calculate()" title="This is a field that accepts dice expressions."></td>
               <td class="smallCalculatedCell" id="rndDmg1">10</td>
             </tr>
             <tr>
               <td class="smallLabelCell">2</td>
-              <td class="innerCell" colspan="2"><input class="doubleIconNumberIn" id="pDmg2" type="string" value="0"
-                onchange="Calculate()" onclick="Calculate()" title="This is a field that accepts mathematical expressions."></td>
+              <td class="innerCell" colspan="2"><input class="doubleDiceNumberIn" id="pDmg2" type="string" value="0"
+                onchange="Calculate()" onclick="Calculate()" title="This is a field that accepts dice expressions."></td>
               <td class="smallCalculatedCell" id="rndDmg2">0</td>
             </tr>
             <tr>
               <td class="smallLabelCell">3</td>
-              <td class="innerCell" colspan="2"><input class="doubleIconNumberIn" id="pDmg3" type="string" value="0"
-                onchange="Calculate()" onclick="Calculate()" title="This is a field that accepts mathematical expressions."></td>
+              <td class="innerCell" colspan="2"><input class="doubleDiceNumberIn" id="pDmg3" type="string" value="0"
+                onchange="Calculate()" onclick="Calculate()" title="This is a field that accepts dice expressions."></td>
               <td class="smallCalculatedCell" id="rndDmg3">0</td>
             </tr>
             <tr>
               <td class="smallLabelCell">4</td>
-              <td class="innerCell" colspan="2"><input class="doubleIconNumberIn" id="pDmg4" type="string" value="0"
-                onchange="Calculate()" onclick="Calculate()" title="This is a field that accepts mathematical expressions."></td>
+              <td class="innerCell" colspan="2"><input class="doubleDiceNumberIn" id="pDmg4" type="string" value="0"
+                onchange="Calculate()" onclick="Calculate()" title="This is a field that accepts dice expressions."></td>
               <td class="smallCalculatedCell" id="rndDmg4">0</td>
             </tr>
             <tr>
               <td class="smallLabelCell">5</td>
-              <td class="innerCell" colspan="2"><input class="doubleIconNumberIn" id="pDmg5" type="string" value="0"
-                onchange="Calculate()" onclick="Calculate()" title="This is a field that accepts mathematical expressions."></td>
+              <td class="innerCell" colspan="2"><input class="doubleDiceNumberIn" id="pDmg5" type="string" value="0"
+                onchange="Calculate()" onclick="Calculate()" title="This is a field that accepts dice expressions."></td>
               <td class="smallCalculatedCell" id="rndDmg5">0</td>
             </tr>
             <tr>
               <td class="smallLabelCell">6</td>
-              <td class="innerCell" colspan="2"><input class="doubleIconNumberIn" id="pDmg6" type="string" value="0"
-                onchange="Calculate()" onclick="Calculate()" title="This is a field that accepts mathematical expressions."></td>
+              <td class="innerCell" colspan="2"><input class="doubleDiceNumberIn" id="pDmg6" type="string" value="0"
+                onchange="Calculate()" onclick="Calculate()" title="This is a field that accepts dice expressions."></td>
               <td class="smallCalculatedCell" id="rndDmg6">0</td>
             </tr>
             <tr>
@@ -326,7 +326,7 @@
     <div id="tutLink">
       <center><a onclick="popup('tutorial')" title="Click to learn more">What is this, and how do I use it?</a></center>
     </div>
-    <div id="versionInfo">v.6.1<br/><br/>Known Issues:<br/><ul><li>Spell calculator does not take concentration into account when selecting spells.</li></ul></div>
+    <div id="versionInfo">v.7.0<br/><br/>Known Issues:<br/><ul><li>Spell calculator does not take concentration into account when selecting spells.</li></ul></div>
     <div id="credits">Credits: I did not originally write this code. The code was written by <a href=https://www.reddit.com/user/ItsADnDMonsterNow>/u/ItsADnDMonsterNow</a> and can be found
       <a href=https://iadndmn.neocities.org/CRcalc.html>here</a>. I modified the code to take our modfied monster
       table into account and added code for generating calculations from url, as well as fixing several bugs oriented around CR &lt; 1.
@@ -335,6 +335,7 @@
     <br/>With 4.0, I added support for damage over time in the spell calculator.
     <br/>With 5.0, I added support for innate spellcasting in the spell calculator.
     <br/>With 6.0, I added support for mathematical expressions in some fields.
+    <br/>With 7.0, I extended the support for mathematical expressions with parsing of dice expressions in some fields.
     <br/>Source code can be found <a href=https://github.com/Frogvall/wc5e-cr-calculator>here</a>.</div>
     <!-- INPUT TABLE ENDS -->
     <!-- SPELLS TABLE BEINGS -->

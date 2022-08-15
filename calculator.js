@@ -1,3 +1,9 @@
+function untangleDiceExpression(expression) {
+  return expression.replace(/(\d+)d(\d+)/g, function(match, group1, group2) {
+    return `${Math.floor((group2/2+0.5)*group1)}`
+  })
+}
+
 function fillOut(_valueString) {
   if (!_valueString) {
     addSpellsToSelect();
@@ -510,38 +516,38 @@ function Validate() // Makes sure the current values in all input boxes are with
     document.getElementById("savingThrowProficiencyCount").value = 6;
   }
   try {
-    if (math.evaluate(document.getElementById("actualHP").value) < 1) { document.getElementById("actualHP").value = 1; }
+    if (math.evaluate(untangleDiceExpression(document.getElementById("actualHP").value)) < 1) { document.getElementById("actualHP").value = 1; }
   } catch (error) {
     document.getElementById("actualHP").value = 1;
   }
   if (parseInt(document.getElementById("actualAB").value) < 0) { document.getElementById("actualAB").value = 0; }
   try {
-    if (math.evaluate(document.getElementById("pDmg1").value) < 0) { document.getElementById("pDmg1").value = 0; }  
+    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg1").value)) < 0) { document.getElementById("pDmg1").value = 0; }  
   } catch (error) {
     document.getElementById("pDmg1").value = 0;
   }
   try {
-    if (math.evaluate(document.getElementById("pDmg2").value) < 0) { document.getElementById("pDmg2").value = 0; }  
+    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg2").value)) < 0) { document.getElementById("pDmg2").value = 0; }  
   } catch (error) {
     document.getElementById("pDmg2").value = 0;
   }
   try {
-    if (math.evaluate(document.getElementById("pDmg3").value) < 0) { document.getElementById("pDmg3").value = 0; }  
+    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg3").value)) < 0) { document.getElementById("pDmg3").value = 0; }  
   } catch (error) {
     document.getElementById("pDmg3").value = 0;
   }
   try {
-    if (math.evaluate(document.getElementById("pDmg4").value) < 0) { document.getElementById("pDmg4").value = 0; }  
+    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg4").value)) < 0) { document.getElementById("pDmg4").value = 0; }  
   } catch (error) {
     document.getElementById("pDmg4").value = 0;
   }
   try {
-    if (math.evaluate(document.getElementById("pDmg4").value) < 0) { document.getElementById("pDmg4").value = 0; }  
+    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg4").value)) < 0) { document.getElementById("pDmg4").value = 0; }  
   } catch (error) {
     document.getElementById("pDmg4").value = 0;
   }
   try {
-    if (math.evaluate(document.getElementById("pDmg5").value) < 0) { document.getElementById("pDmg5").value = 0; }  
+    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg5").value)) < 0) { document.getElementById("pDmg5").value = 0; }  
   } catch (error) {
     document.getElementById("pDmg5").value = 0;
   }
@@ -595,7 +601,8 @@ function Calculate() // Begins main CR calculation
   effAC.innerHTML = AC;
 
   //CALCULATE HP â€” check the 'actual HP' input and modify it according to applicable traits/tier/etc., then store & output as 'effective HP'
-  var HP = Math.floor(math.evaluate(document.getElementById("actualHP").value));
+  var hpString = document.getElementById("actualHP").value;
+  var HP = Math.floor(math.evaluate(untangleDiceExpression(hpString))), actualHP = HP;
   var effHP = document.getElementById("effectiveHP");
   var hpMult = 1;   // This variable represents that different HP multipliers should be additive, not multiplicative (i.e. "+100%" and "+100%" equals "+200%", as opposed to "x2" and "x2" equals "x4")
   switch (tier) {   // check CR "tier", then adjust any modifiers for dmg resistance/immunity accordingly.
@@ -654,7 +661,11 @@ function Calculate() // Begins main CR calculation
   }
   if (document.getElementById("relentless").checked) { HP += (7 * tier); }
   if (document.getElementById("undeadFortitude").checked) { HP += (7 * tier); }
-  effHP.innerHTML = HP;
+  if (`${actualHP}` !== hpString.trim() && hpMult !== 1) {
+    effHP.innerHTML = `${HP} (${actualHP})`;
+  } else {
+    effHP.innerHTML = HP;
+  }
 
   //CALCULATE ATTACK BONUS
   var attBonus = parseInt(document.getElementById("actualAB").value);
@@ -672,9 +683,9 @@ function Calculate() // Begins main CR calculation
   var dmgTransferDmg = 0;
   var rmpgDmg = 0;
   if (document.getElementById("aggressive").checked) { aggDmg = 2; }
-  if (document.getElementById("damageTransfer").checked) { dmgTransferDmg = Math.floor(Math.round(math.evaluate(document.getElementById("actualHP").value)) / 3); }
+  if (document.getElementById("damageTransfer").checked) { dmgTransferDmg = Math.floor(Math.round(math.evaluate(untangleDiceExpression(document.getElementById("actualHP").value))) / 3); }
   if (document.getElementById("rampage").checked) { rmpgDmg = 2; }
-  var dmg1 = Math.floor(math.evaluate(document.getElementById("pDmg1").value));
+  var dmg1 = Math.floor(math.evaluate(untangleDiceExpression(document.getElementById("pDmg1").value)));
   if (dmg1 > 0) {
     dmg1 += aggDmg + dmgTransferDmg + rmpgDmg;
     rounds++;
@@ -682,7 +693,7 @@ function Calculate() // Begins main CR calculation
     dmg1 = 0;
   }
   document.getElementById("rndDmg1").innerHTML = dmg1;
-  var dmg2 = Math.floor(math.evaluate(document.getElementById("pDmg2").value));
+  var dmg2 = Math.floor(math.evaluate(untangleDiceExpression(document.getElementById("pDmg2").value)));
   if (dmg2 > 0) {
     dmg2 += aggDmg + dmgTransferDmg + rmpgDmg;
     rounds++;
@@ -690,7 +701,7 @@ function Calculate() // Begins main CR calculation
     dmg2 = 0;
   }
   document.getElementById("rndDmg2").innerHTML = dmg2;
-  var dmg3 = Math.floor(math.evaluate(document.getElementById("pDmg3").value));
+  var dmg3 = Math.floor(math.evaluate(untangleDiceExpression(document.getElementById("pDmg3").value)));
   if (dmg3 > 0) {
     dmg3 += aggDmg + dmgTransferDmg + rmpgDmg;
     rounds++;
@@ -698,7 +709,7 @@ function Calculate() // Begins main CR calculation
     dmg3 = 0;
   }
   document.getElementById("rndDmg3").innerHTML = dmg3;
-  var dmg4 = Math.floor(math.evaluate(document.getElementById("pDmg4").value));
+  var dmg4 = Math.floor(math.evaluate(untangleDiceExpression(document.getElementById("pDmg4").value)));
   if (dmg4 > 0) {
     dmg4 += aggDmg + dmgTransferDmg + rmpgDmg;
     rounds++;
@@ -706,7 +717,7 @@ function Calculate() // Begins main CR calculation
     dmg4 = 0;
   }
   document.getElementById("rndDmg4").innerHTML = dmg4;
-  var dmg5 = Math.floor(math.evaluate(document.getElementById("pDmg5").value));
+  var dmg5 = Math.floor(math.evaluate(untangleDiceExpression(document.getElementById("pDmg5").value)));
   if (dmg5 > 0) {
     dmg5 += aggDmg + dmgTransferDmg + rmpgDmg;
     rounds++;
@@ -714,7 +725,7 @@ function Calculate() // Begins main CR calculation
     dmg5 = 0;
   }
   document.getElementById("rndDmg5").innerHTML = dmg5;
-  var dmg6 =  Math.floor(math.evaluate(document.getElementById("pDmg6").value));
+  var dmg6 =  Math.floor(math.evaluate(untangleDiceExpression(document.getElementById("pDmg6").value)));
   if (dmg6 > 0) {
     dmg6 += aggDmg + dmgTransferDmg + rmpgDmg;
     rounds++; 

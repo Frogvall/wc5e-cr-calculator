@@ -251,7 +251,7 @@
     width: 60px;
   }
 
-  .iconNumberIn {
+  .mathNumberIn {
     width: 100%;
     padding-right: 15px;
     background: url("plus-minus-solid.svg") no-repeat;
@@ -260,10 +260,19 @@
     border: none;
   }
 
-  .doubleIconNumberIn {
+  .diceNumberIn {
+    width: 100%;
+    padding-right: 15px;
+    background: url("dice-solid.svg") no-repeat;
+    background-size: 10px;
+    background-position: 95% center;
+    border: none;
+  }
+
+  .doubleDiceNumberIn {
     width: 120px;
     padding-right: 15px;
-    background: url("plus-minus-solid.svg") no-repeat;
+    background: url("dice-solid.svg") no-repeat;
     background-size: 10px;
     background-position: 105px center;
     border: none
