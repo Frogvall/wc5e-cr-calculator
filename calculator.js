@@ -601,8 +601,7 @@ function Calculate() // Begins main CR calculation
   effAC.innerHTML = AC;
 
   //CALCULATE HP â€” check the 'actual HP' input and modify it according to applicable traits/tier/etc., then store & output as 'effective HP'
-  var hpString = document.getElementById("actualHP").value;
-  var HP = Math.floor(math.evaluate(untangleDiceExpression(hpString))), actualHP = HP;
+  var HP = Math.floor(math.evaluate(untangleDiceExpression(document.getElementById("actualHP").value))), actualHP = HP;
   var effHP = document.getElementById("effectiveHP");
   var hpMult = 1;   // This variable represents that different HP multipliers should be additive, not multiplicative (i.e. "+100%" and "+100%" equals "+200%", as opposed to "x2" and "x2" equals "x4")
   switch (tier) {   // check CR "tier", then adjust any modifiers for dmg resistance/immunity accordingly.
@@ -661,7 +660,7 @@ function Calculate() // Begins main CR calculation
   }
   if (document.getElementById("relentless").checked) { HP += (7 * tier); }
   if (document.getElementById("undeadFortitude").checked) { HP += (7 * tier); }
-  if (`${actualHP}` !== hpString.trim() && hpMult !== 1) {
+  if (actualHP !== HP) {
     effHP.innerHTML = `${HP} (${actualHP})`;
   } else {
     effHP.innerHTML = HP;
