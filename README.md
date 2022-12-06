@@ -13,3 +13,5 @@ With 4.0, I added support for damage over time in the spell calculator.
 With 5.0, I added support for innate spellcasting in the spell calculator.
 
 With 6.0, I added support for mathematical expressions in some fields.
+
+With 7.0, I extended the support for mathematical expressions with parsing of dice expressions in some fields.
