@@ -10,9 +10,14 @@ function fillOut(_valueString) {
     return;
   }
   var values = decodeURI(_valueString).split(";");
-  if (values[0] != "v2") {
+  if (values[0] != "v2" && values[0] != "v3") {
     legacyFillOut(_valueString);
   } else {
+    if (values[0] == "v3") {
+      document.getElementById("wc5eTable").checked = values[1] == "1";
+      document.getElementById("officialTable").checked = values[1] == "0";
+      values.splice(1,1);
+    }
     document.getElementById("targetCR").selectedIndex = values[1];
     document.getElementById("actualAC").value = values[2];
     document.getElementById("actualHP").value = values[3];
@@ -197,7 +202,9 @@ function legacyFillOut(_valueString) {
 }
 
 function generateUrl() {
-  var valueString = "v2;" +
+  var valueString = "v3;" +
+    (document.getElementById("wc5eTable").checked ? "1" : "0")
+    + ";" +
     document.getElementById("targetCR").selectedIndex
     + ";" +
     document.getElementById("actualAC").value
@@ -395,13 +402,17 @@ function roundCR(_num, _alpha = false) {
   }
 }
 function DCRbyHP(_hp) {
+  isWc5e = isWC5eTableUsed()
+  max1_8 = getMaxHitPoints(isWc5e, -2)
+  max1_4 = getMaxHitPoints(isWc5e, -1)
+  max1_2 = getMaxHitPoints(isWc5e, 0)
   if (_hp < 7) {
     return -3;
-  } else if (_hp < 19) {
+  } else if (_hp < max1_8+1) {
     return -2;
-  } else if (_hp < 31) {
+  } else if (_hp < max1_4+1) {
     return -1;
-  } else if (_hp < 51) {
+  } else if (_hp < max1_2+1) {
     return 0
   } else if (_hp < 86) {
     return 1;
@@ -508,7 +519,7 @@ function Validate() // Makes sure the current values in all input boxes are with
   } catch (error) {
     document.getElementById("actualAC").value = 1;
   }
-  
+
   if (parseInt(document.getElementById("savingThrowProficiencyCount").value) < 0) {
     document.getElementById("savingThrowProficiencyCount").value = 0;
   }
@@ -522,32 +533,32 @@ function Validate() // Makes sure the current values in all input boxes are with
   }
   if (parseInt(document.getElementById("actualAB").value) < 0) { document.getElementById("actualAB").value = 0; }
   try {
-    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg1").value)) < 0) { document.getElementById("pDmg1").value = 0; }  
+    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg1").value)) < 0) { document.getElementById("pDmg1").value = 0; }
   } catch (error) {
     document.getElementById("pDmg1").value = 0;
   }
   try {
-    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg2").value)) < 0) { document.getElementById("pDmg2").value = 0; }  
+    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg2").value)) < 0) { document.getElementById("pDmg2").value = 0; }
   } catch (error) {
     document.getElementById("pDmg2").value = 0;
   }
   try {
-    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg3").value)) < 0) { document.getElementById("pDmg3").value = 0; }  
+    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg3").value)) < 0) { document.getElementById("pDmg3").value = 0; }
   } catch (error) {
     document.getElementById("pDmg3").value = 0;
   }
   try {
-    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg4").value)) < 0) { document.getElementById("pDmg4").value = 0; }  
+    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg4").value)) < 0) { document.getElementById("pDmg4").value = 0; }
   } catch (error) {
     document.getElementById("pDmg4").value = 0;
   }
   try {
-    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg4").value)) < 0) { document.getElementById("pDmg4").value = 0; }  
+    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg4").value)) < 0) { document.getElementById("pDmg4").value = 0; }
   } catch (error) {
     document.getElementById("pDmg4").value = 0;
   }
   try {
-    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg5").value)) < 0) { document.getElementById("pDmg5").value = 0; }  
+    if (math.evaluate(untangleDiceExpression(document.getElementById("pDmg5").value)) < 0) { document.getElementById("pDmg5").value = 0; }
   } catch (error) {
     document.getElementById("pDmg5").value = 0;
   }
@@ -565,6 +576,15 @@ function TransformToTableValue(_value) {
 function Calculate() // Begins main CR calculation
 {
   Validate(); // validate that inputs are OK
+
+  isWc5e = isWC5eTableUsed()
+  max1_8 = getMaxHitPoints(isWc5e, -2)
+  max1_4 = getMaxHitPoints(isWc5e, -1)
+  max1_2 = getMaxHitPoints(isWc5e, 0)
+  document.getElementById("1/8hp").innerHTML = `7&ndash;${max1_8}`;
+  document.getElementById("1/4hp").innerHTML = `${max1_8+1}&ndash;${max1_4}`;
+  document.getElementById("1/2hp").innerHTML = `${max1_4+1}&ndash;${max1_2}`;
+  document.getElementById("1hp").innerHTML = `${max1_2+1}&ndash;85`;
 
   //CALCULATE TIER â€” check target CR range, shorten to a corresponding "tier"
   var tier = 1;
@@ -727,7 +747,7 @@ function Calculate() // Begins main CR calculation
   var dmg6 =  Math.floor(math.evaluate(untangleDiceExpression(document.getElementById("pDmg6").value)));
   if (dmg6 > 0) {
     dmg6 += aggDmg + dmgTransferDmg + rmpgDmg;
-    rounds++; 
+    rounds++;
   } else {
     dmg6 = 0;
   }
