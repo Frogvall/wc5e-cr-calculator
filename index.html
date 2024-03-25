@@ -7,6 +7,7 @@
 <link type="text/css" href="slimselect.min.css" rel="stylesheet"/>
 <script type="text/javascript" src="spells.min.js"></script>
 <script type="text/javascript" src="spellCalculator.min.js"></script>
+<script type="text/javascript" src="table.min.js"></script>
 <script type="text/javascript" src="calculator.min.js"></script>
 <div id="foundation">
   <form id="mainForm">
@@ -326,9 +327,9 @@
     <div id="tutLink">
       <center><a onclick="popup('tutorial')" title="Click to learn more">What is this, and how do I use it?</a></center>
     </div>
-    <div id="versionInfo">v.7.0<br/><br/>Known Issues:<br/><ul><li>Spell calculator does not take concentration into account when selecting spells.</li></ul></div>
+    <div id="versionInfo">v.7.1<br/><br/>Known Issues:<br/><ul><li>Spell calculator does not take concentration into account when selecting spells.</li></ul></div>
     <div id="credits">Credits: I did not originally write this code. The code was written by <a href=https://www.reddit.com/user/ItsADnDMonsterNow>/u/ItsADnDMonsterNow</a> and can be found
-      <a href=https://iadndmn.neocities.org/CRcalc.html>here</a>. I modified the code to take our modfied monster
+      <a href=https://iadndmn.neocities.org/CRcalc.html>here</a>. I modified the code to take the WC5e modified monster
       table into account and added code for generating calculations from url, as well as fixing several bugs oriented around CR &lt; 1.
     <br/>With 2.0, I added a spell damage calculator. Spell list with damage values was originally made by <a href=https://github.com/AceAzzermeen>AceAzzermeen</a>.
     <br/>With 3.0, I added Champion of Azeroth spells to the spell calculator.
@@ -336,6 +337,7 @@
     <br/>With 5.0, I added support for innate spellcasting in the spell calculator.
     <br/>With 6.0, I added support for mathematical expressions in some fields.
     <br/>With 7.0, I extended the support for mathematical expressions with parsing of dice expressions in some fields.
+    <br/>With 7.1, I added support for swapping between the WC5e table and the official table (affecting Defensive CR for CR 1/8-1).
     <br/>Source code can be found <a href=https://github.com/Frogvall/wc5e-cr-calculator>here</a>.</div>
     <!-- INPUT TABLE ENDS -->
     <!-- SPELLS TABLE BEINGS -->
@@ -357,7 +359,7 @@
         </td>
         <td class="innerCell">
           <input class="smallNumberIn" id="ss3" type="number" value="1" onchange="calculateSpellDamage()" onclick="calculateSpellDamage()">
-        </td> 
+        </td>
         <td>
           <input class="smallNumberIn" id="scl" type="number" value="3" onchange="calculateSpellDamage()" onclick="calculateSpellDamage()">
         </td>
@@ -474,7 +476,7 @@
         <th>&frac18;&nbsp;(25&nbsp;XP)</th>
         <td>+2</td>
         <td>13</td>
-        <td>7&ndash;18</td>
+        <td id="1/8hp">7&ndash;18</td>
         <td>+3</td>
         <td>2&ndash;3</td>
         <td>13</td>
@@ -483,7 +485,7 @@
         <th>&frac14;&nbsp;(50&nbsp;XP)</th>
         <td>+2</td>
         <td>13</td>
-        <td>19&ndash;30</td>
+        <td id="1/4hp">19&ndash;30</td>
         <td>+3</td>
         <td>4&ndash;5</td>
         <td>13</td>
@@ -492,7 +494,7 @@
         <th>&frac12;&nbsp;(100&nbsp;XP)</th>
         <td>+2</td>
         <td>13</td>
-        <td>31&ndash;50</td>
+        <td id="1/2hp">31&ndash;50</td>
         <td>+3</td>
         <td>6&ndash;8</td>
         <td>13</td>
@@ -501,7 +503,7 @@
         <th>1&nbsp;(200&nbsp;XP)</th>
         <td>+2</td>
         <td>13</td>
-        <td>51&ndash;85</td>
+        <td id="1hp">51&ndash;85</td>
         <td>+3</td>
         <td>9&ndash;14</td>
         <td>13</td>
@@ -766,6 +768,19 @@
         <td>+14</td>
         <td>303&ndash;320</td>
         <td>23</td>
+      </tr>
+      <tr>
+        <th class="refSubHeader" colspan="7">Table used</th>
+      </tr>
+      <tr>
+        <td class="innerCell" colspan="3" title="Use Warcraft 5e table">
+          <label for="wc5eTable"><input id="wc5eTable" type="checkbox" checked
+              onclick="swapTable('wc5eTable')">&nbsp;WC5e</label>
+        </td>
+        <td class="innerCell" colspan="4" title="Use official table">
+          <label for="officialTable"><input id="officialTable" type="checkbox"
+              onclick="swapTable('officialTable')">&nbsp;Official</label>
+        </td>
       </tr>
     </table>
     <!-- REFERENCE TABLE ENDS -->
