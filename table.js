@@ -97,7 +97,7 @@ function getBlogOfHolding2024Stats() {
             const pb = Math.ceil(i/4.0)+1
             const ac = Math.floor(i/3.0)+14
             const hp = i < 21 ? i*15+15 : (i-20)*50+315
-            const hpMinus = i < 21 ? 7 : 25
+            const hpMinus = i < 21 ? 7 : i === 21 ? 42 : 25
             const hpPlus = i < 21 ? 7 : 24
             const ab = Math.floor(i/2.0)+4
             const dmg = i*6+6
