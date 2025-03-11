@@ -17,10 +17,10 @@
         <td class="header" colspan="6">Warcraft CR Calculator</td>
       </tr>
       <tr>
-        <td class="labelCell" colspan="3">
+        <td class="labelCell" colspan="2">
           <center>Target CR Range:</center>
         </td>
-        <td class="inputCell" id="targetCRCell" colspan ="3">
+        <td class="inputCell" id="targetCRCell" colspan ="2">
           <center>
             <select id="targetCR" type="dropdown" onchange="Calculate()">
               <option value="0-4">0-4</option>
@@ -28,6 +28,12 @@
               <option value="11-16">11-16</option>
               <option value="17p">17+</option>
             </select>
+          </center>
+        </td>
+        <td class="innerCell" colspan="2" title="The creature is legendary or a dragon using the 2024 rules. Increases CR threshold for damage by 25%.">
+          <center>
+            <label for="legendaryDragon"><input id="legendaryDragon" type="checkbox" disabled=true
+                onclick="Calculate()">&nbsp;Legendary&#47;Dragon</label>
           </center>
         </td>
       </tr>
@@ -244,7 +250,7 @@
         <td class="calculatedCell" id="effectiveAB">+4</td>
       </tr>
       <tr>
-        <td class="labelCell">Damage per Round:</td>
+        <td class="labelCell">Effective damage per round for calculating offensive CR:</td>
         <td class="calculatedCell" id="dmgPerRound">10</td>
         <td class="tableCell" colspan="2">
           <table class="choiceTable">

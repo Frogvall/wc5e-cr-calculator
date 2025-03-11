@@ -3,25 +3,31 @@ function swapTable(clickedCheckbox) {
         if (clickedCheckbox == 'officialTable') {
             document.getElementById('wc5eTable').checked = false
             document.getElementById('2024Table').checked = false
+            document.getElementById('legendaryDragon').disabled = true
         }
         else if (clickedCheckbox == 'wc5eTable') {
             document.getElementById('officialTable').checked = false
             document.getElementById('2024Table').checked = false
+            document.getElementById('legendaryDragon').disabled = true
         }
         else if (clickedCheckbox == '2024Table') {
             document.getElementById('officialTable').checked = false
             document.getElementById('wc5eTable').checked = false
+            document.getElementById('legendaryDragon').disabled = false
         }
     }
     else {
         if (clickedCheckbox == 'officialTable') {
             document.getElementById('officialTable').checked = true
+            document.getElementById('legendaryDragon').disabled = true
         }
         else if (clickedCheckbox == 'wc5eTable') {
             document.getElementById('wc5eTable').checked = true
+            document.getElementById('legendaryDragon').disabled = true
         }
         else if (clickedCheckbox == '2024Table') {
             document.getElementById('2024Table').checked = true
+            document.getElementById('legendaryDragon').disabled = false
         }
     }
     Calculate()

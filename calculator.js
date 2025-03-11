@@ -14,9 +14,11 @@ function fillOut(_valueString) {
     legacyFillOut(_valueString);
   } else {
     if (values[0] == "v3") {
-      document.getElementById("2024Table").checked = values[1] == "2";
-      document.getElementById("wc5eTable").checked = values[1] == "1";
-      document.getElementById("officialTable").checked = values[1] == "0";
+      document.getElementById('legendaryDragon').checked = values[1] === "3";
+      document.getElementById("2024Table").checked = ["2", "3"].includes(values[1]);
+      document.getElementById('legendaryDragon').disabled = !["2", "3"].includes(values[1]);
+      document.getElementById("wc5eTable").checked = values[1] === "1";
+      document.getElementById("officialTable").checked = values[1] === "0";
       values.splice(1,1);
     }
     document.getElementById("targetCR").selectedIndex = values[1];
@@ -174,28 +176,28 @@ function legacyFillOut(_valueString) {
   let is3 = values.indexOf('is3');
   if (is1 == -1) {
     let spellNames = [values.length-spellStartIndex];
-    for (var i = spellStartIndex; i < values.length; i++) {
+    for (let i = spellStartIndex; i < values.length; i++) {
       spellNames[i-spellStartIndex] = decodeURIComponent(values[i]);
     }
     select.set(spellNames);
   } else {
     let spellNames = [is1-spellStartIndex];
-    for (var i = spellStartIndex; i < is1; i++) {
+    for (let i = spellStartIndex; i < is1; i++) {
       spellNames[i-spellStartIndex] = decodeURIComponent(values[i]);
     }
     select.set(spellNames);
     spellNames = [is2-is1-1];
-    for (var i = is1+1; i < is2; i++) {
+    for (let i = is1+1; i < is2; i++) {
       spellNames[i-is1-1] = decodeURIComponent(values[i]);
     }
     iSelect1.set(spellNames);
     spellNames = [is3-is2-1];
-    for (var i = is2+1; i < is3; i++) {
+    for (let i = is2+1; i < is3; i++) {
       spellNames[i-is2-1] = decodeURIComponent(values[i]);
     }
     iSelect2.set(spellNames);
     spellNames = [values.length-is3-1];
-    for (var i = is3+1; i < values.length; i++) {
+    for (let i = is3+1; i < values.length; i++) {
       spellNames[i-is3-1] = decodeURIComponent(values[i]);
     }
     iSelect3.set(spellNames);
@@ -203,8 +205,8 @@ function legacyFillOut(_valueString) {
 }
 
 function generateUrl() {
-  var valueString = "v3;" +
-    (document.getElementById("2024Table").checked ? "2" : document.getElementById("wc5eTable").checked ? "1" : "0")
+  const valueString = "v3;" +
+    (document.getElementById("2024Table").checked ? `${2+document.getElementById("legendaryDragon").checked}` : document.getElementById("wc5eTable").checked ? "1" : "0")
     + ";" +
     document.getElementById("targetCR").selectedIndex
     + ";" +
@@ -709,7 +711,10 @@ function Calculate() // Begins main CR calculation
   } else {
     modDmg = 0;
   }
+
   document.getElementById("avgDmg").innerHTML = modDmg;
+  if (document.getElementById("legendaryDragon").checked === true && document.getElementById("2024Table").checked)
+    modDmg = Math.round(modDmg * 0.8);
   document.getElementById("dmgPerRound").innerHTML = modDmg;
 
   //CALCULATE SAVE DC
