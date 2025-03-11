@@ -327,7 +327,7 @@
     <div id="tutLink">
       <center><a onclick="popup('tutorial')" title="Click to learn more">What is this, and how do I use it?</a></center>
     </div>
-    <div id="versionInfo">v.7.1<br/><br/>Known Issues:<br/><ul><li>Spell calculator does not take concentration into account when selecting spells.</li></ul></div>
+    <div id="versionInfo">v.8.0<br/><br/>Known Issues:<br/><ul><li>Spell calculator does not take concentration into account when selecting spells.</li></ul></div>
     <div id="credits">Credits: I did not originally write this code. The code was written by <a href=https://www.reddit.com/user/ItsADnDMonsterNow>/u/ItsADnDMonsterNow</a> and can be found
       <a href=https://iadndmn.neocities.org/CRcalc.html>here</a>. I modified the code to take the WC5e modified monster
       table into account and added code for generating calculations from url, as well as fixing several bugs oriented around CR &lt; 1.
@@ -338,6 +338,7 @@
     <br/>With 6.0, I added support for mathematical expressions in some fields.
     <br/>With 7.0, I extended the support for mathematical expressions with parsing of dice expressions in some fields.
     <br/>With 7.1, I added support for swapping between the WC5e table and the official table (affecting Defensive CR for CR 1/8-1).
+    <br/>With 8.0, I added support for 2024 CR tables made by <a href="https://www.blogofholding.com/?p=8469">Blog of Holding</a>, by reverse engineering the 2024 Monster Manual.
     <br/>Source code can be found <a href=https://github.com/Frogvall/wc5e-cr-calculator>here</a>.</div>
     <!-- INPUT TABLE ENDS -->
     <!-- SPELLS TABLE BEINGS -->
@@ -465,321 +466,325 @@
       </tr>
       <tr>
         <th>0&nbsp;(0&ndash;10&nbsp;XP)</th>
-        <td>+2</td>
-        <td>&le;13</td>
-        <td>1&ndash;6</td>
-        <td>&le;+3</td>
-        <td>0&ndash;1</td>
-        <td>&le;13</td>
+        <td id="-3pb">+2</td>
+        <td id="-3ac">&le;13</td>
+        <td id="-3hp">1&ndash;6</td>
+        <td id="-3ab">&le;+3</td>
+        <td id="-3dmg">0&ndash;1</td>
+        <td id="-3dc">&le;13</td>
       </tr>
       <tr>
         <th>&frac18;&nbsp;(25&nbsp;XP)</th>
-        <td>+2</td>
-        <td>13</td>
-        <td id="1/8hp">7&ndash;18</td>
-        <td>+3</td>
-        <td>2&ndash;3</td>
-        <td>13</td>
+        <td id="-2pb">+2</td>
+        <td id="-2ac">13</td>
+        <td id="-2hp">7&ndash;18</td>
+        <td id="-2ab">+3</td>
+        <td id="-2dmg">2&ndash;3</td>
+        <td id="-2dc">13</td>
       </tr>
       <tr>
         <th>&frac14;&nbsp;(50&nbsp;XP)</th>
-        <td>+2</td>
-        <td>13</td>
-        <td id="1/4hp">19&ndash;30</td>
-        <td>+3</td>
-        <td>4&ndash;5</td>
-        <td>13</td>
+        <td id="-1pb">+2</td>
+        <td id="-1ac">13</td>
+        <td id="-1hp">19&ndash;30</td>
+        <td id="-1ab">+3</td>
+        <td id="-1dmg">4&ndash;5</td>
+        <td id="-1dc">13</td>
       </tr>
       <tr>
         <th>&frac12;&nbsp;(100&nbsp;XP)</th>
-        <td>+2</td>
-        <td>13</td>
-        <td id="1/2hp">31&ndash;50</td>
-        <td>+3</td>
-        <td>6&ndash;8</td>
-        <td>13</td>
+        <td id="0pb">+2</td>
+        <td id="0ac">13</td>
+        <td id="0hp">31&ndash;50</td>
+        <td id="0ab">+3</td>
+        <td id="0dmg">6&ndash;8</td>
+        <td id="0dc">13</td>
       </tr>
       <tr>
         <th>1&nbsp;(200&nbsp;XP)</th>
-        <td>+2</td>
-        <td>13</td>
-        <td id="1hp">51&ndash;85</td>
-        <td>+3</td>
-        <td>9&ndash;14</td>
-        <td>13</td>
+        <td id="1pb">+2</td>
+        <td id="1ac">13</td>
+        <td id="1hp" id="1hp">51&ndash;85</td>
+        <td id="1ab">+3</td>
+        <td id="1dmg">9&ndash;14</td>
+        <td id="1dc">13</td>
       </tr>
       <tr>
         <th onclick="window.alert(Roll(promptN(2),2))">2&nbsp;(450&nbsp;XP)</th>
-        <td>+2</td>
-        <td>13</td>
-        <td>86&ndash;100</td>
-        <td>+3</td>
-        <td>15&ndash;20</td>
-        <td>13</td>
+        <td id="2pb">+2</td>
+        <td id="2ac">13</td>
+        <td id="2hp">86&ndash;100</td>
+        <td id="2ab">+3</td>
+        <td id="2dmg">15&ndash;20</td>
+        <td id="2dc">13</td>
       </tr>
       <tr>
         <th onclick="window.alert(Roll(promptN(3),3))">3&nbsp;(700&nbsp;XP)</th>
-        <td>+2</td>
-        <td>13</td>
-        <td>101&ndash;115</td>
-        <td>+4</td>
-        <td>21&ndash;26</td>
-        <td>13</td>
+        <td id="3pb">+2</td>
+        <td id="3ac">13</td>
+        <td id="3hp">101&ndash;115</td>
+        <td id="3ab">+4</td>
+        <td id="3dmg">21&ndash;26</td>
+        <td id="3dc">13</td>
       </tr>
       <tr>
         <th onclick="window.alert(Roll(promptN(4),4))">4&nbsp;(1,100&nbsp;XP)</th>
-        <td>+2</td>
-        <td>14</td>
-        <td>116&ndash;130</td>
-        <td>+5</td>
-        <td>27&ndash;32</td>
-        <td>14</td>
+        <td id="4pb">+2</td>
+        <td id="4ac">14</td>
+        <td id="4hp">116&ndash;130</td>
+        <td id="4ab">+5</td>
+        <td id="4dmg">27&ndash;32</td>
+        <td id="4dc">14</td>
       </tr>
       <tr>
         <th>5&nbsp;(1,800&nbsp;XP)</th>
-        <td>+3</td>
-        <td>15</td>
-        <td>131&ndash;145</td>
-        <td>+6</td>
-        <td>33&ndash;38</td>
-        <td>15</td>
+        <td id="5pb">+3</td>
+        <td id="5ac">15</td>
+        <td id="5hp">131&ndash;145</td>
+        <td id="5ab">+6</td>
+        <td id="5dmg">33&ndash;38</td>
+        <td id="5dc">15</td>
       </tr>
       <tr>
         <th onclick="window.alert(Roll(promptN(6),6))">6&nbsp;(2,300&nbsp;XP)</th>
-        <td>+3</td>
-        <td>15</td>
-        <td>146&ndash;160</td>
-        <td>+6</td>
-        <td>39&ndash;44</td>
-        <td>15</td>
+        <td id="6pb">+3</td>
+        <td id="6ac">15</td>
+        <td id="6hp">146&ndash;160</td>
+        <td id="6ab">+6</td>
+        <td id="6dmg">39&ndash;44</td>
+        <td id="6dc">15</td>
       </tr>
       <tr>
         <th>7&nbsp;(2,900&nbsp;XP)</th>
-        <td>+3</td>
-        <td>15</td>
-        <td>161&ndash;175</td>
-        <td>+6</td>
-        <td>45&ndash;50</td>
-        <td>15</td>
+        <td id="7pb">+3</td>
+        <td id="7ac">15</td>
+        <td id="7hp">161&ndash;175</td>
+        <td id="7ab">+6</td>
+        <td id="7dmg">45&ndash;50</td>
+        <td id="7dc">15</td>
       </tr>
       <tr>
         <th onclick="window.alert(Roll(promptN(8),8))">8&nbsp;(3,900&nbsp;XP)</th>
-        <td>+3</td>
-        <td>16</td>
-        <td>176&ndash;190</td>
-        <td>+7</td>
-        <td>51&ndash;56</td>
-        <td>16</td>
+        <td id="8pb">+3</td>
+        <td id="8ac">16</td>
+        <td id="8hp">176&ndash;190</td>
+        <td id="8ab">+7</td>
+        <td id="8dmg">51&ndash;56</td>
+        <td id="8dc">16</td>
       </tr>
       <tr>
         <th>9&nbsp;(5,000&nbsp;XP)</th>
-        <td>+4</td>
-        <td>16</td>
-        <td>191&ndash;205</td>
-        <td>+7</td>
-        <td>57&ndash;62</td>
-        <td>16</td>
+        <td id="9pb">+4</td>
+        <td id="9ac">16</td>
+        <td id="9hp">191&ndash;205</td>
+        <td id="9ab">+7</td>
+        <td id="9dmg">57&ndash;62</td>
+        <td id="9dc">16</td>
       </tr>
       <tr>
         <th onclick="window.alert(Roll(promptN(10),10))">10&nbsp;(5,900&nbsp;XP)</th>
-        <td>+4</td>
-        <td>17</td>
-        <td>206&ndash;220</td>
-        <td>+7</td>
-        <td>63&ndash;68</td>
-        <td>16</td>
+        <td id="10pb">+4</td>
+        <td id="10ac">17</td>
+        <td id="10hp">206&ndash;220</td>
+        <td id="10ab">+7</td>
+        <td id="10dmg">63&ndash;68</td>
+        <td id="10dc">16</td>
       </tr>
       <tr>
         <th>11&nbsp;(7,200&nbsp;XP)</th>
-        <td>+4</td>
-        <td>17</td>
-        <td>221&ndash;235</td>
-        <td>+8</td>
-        <td>69&ndash;74</td>
-        <td>17</td>
+        <td id="11pb">+4</td>
+        <td id="11ac">17</td>
+        <td id="11hp">221&ndash;235</td>
+        <td id="11ab">+8</td>
+        <td id="11dmg">69&ndash;74</td>
+        <td id="11dc">17</td>
       </tr>
       <tr>
         <th onclick="window.alert(Roll(promptN(12),12))">12&nbsp;(8,400&nbsp;XP)</th>
-        <td>+4</td>
-        <td>17</td>
-        <td>236&ndash;250</td>
-        <td>+8</td>
-        <td>75&ndash;80</td>
-        <td>17</td>
+        <td id="12pb">+4</td>
+        <td id="12ac">17</td>
+        <td id="12hp">236&ndash;250</td>
+        <td id="12ab">+8</td>
+        <td id="12dmg">75&ndash;80</td>
+        <td id="12dc">17</td>
       </tr>
       <tr>
         <th>13&nbsp;(10,000&nbsp;XP)</th>
-        <td>+5</td>
-        <td>18</td>
-        <td>251&ndash;265</td>
-        <td>+8</td>
-        <td>81&ndash;86</td>
-        <td>18</td>
+        <td id="13pb">+5</td>
+        <td id="13ac">18</td>
+        <td id="13hp">251&ndash;265</td>
+        <td id="13ab">+8</td>
+        <td id="13dmg">81&ndash;86</td>
+        <td id="13dc">18</td>
       </tr>
       <tr>
         <th>14&nbsp;(11,500&nbsp;XP)</th>
-        <td>+5</td>
-        <td>18</td>
-        <td>266&ndash;280</td>
-        <td>+8</td>
-        <td>87&ndash;92</td>
-        <td>18</td>
+        <td id="14pb">+5</td>
+        <td id="14ac">18</td>
+        <td id="14hp">266&ndash;280</td>
+        <td id="14ab">+8</td>
+        <td id="14dmg">87&ndash;92</td>
+        <td id="14dc">18</td>
       </tr>
       <tr>
         <th>15&nbsp;(13,000&nbsp;XP)</th>
-        <td>+5</td>
-        <td>18</td>
-        <td>281&ndash;295</td>
-        <td>+8</td>
-        <td>93&ndash;98</td>
-        <td>18</td>
+        <td id="15pb">+5</td>
+        <td id="15ac">18</td>
+        <td id="15hp">281&ndash;295</td>
+        <td id="15ab">+8</td>
+        <td id="15dmg">93&ndash;98</td>
+        <td id="15dc">18</td>
       </tr>
       <tr>
         <th>16&nbsp;(15,000&nbsp;XP)</th>
-        <td>+5</td>
-        <td>18</td>
-        <td>296&ndash;310</td>
-        <td>+9</td>
-        <td>99&ndash;104</td>
-        <td>18</td>
+        <td id="16pb">+5</td>
+        <td id="16ac">18</td>
+        <td id="16hp">296&ndash;310</td>
+        <td id="16ab">+9</td>
+        <td id="16dmg">99&ndash;104</td>
+        <td id="16dc">18</td>
       </tr>
       <tr>
         <th>17&nbsp;(18,000&nbsp;XP)</th>
-        <td>+6</td>
-        <td>19</td>
-        <td>311&ndash;325</td>
-        <td>+10</td>
-        <td>105&ndash;110</td>
-        <td>19</td>
+        <td id="17pb">+6</td>
+        <td id="17ac">19</td>
+        <td id="17hp">311&ndash;325</td>
+        <td id="17ab">+10</td>
+        <td id="17dmg">105&ndash;110</td>
+        <td id="17dc">19</td>
       </tr>
       <tr>
         <th>18&nbsp;(20,000&nbsp;XP)</th>
-        <td>+6</td>
-        <td>19</td>
-        <td>326&ndash;340</td>
-        <td>+10</td>
-        <td>111&ndash;116</td>
-        <td>19</td>
+        <td id="18pb">+6</td>
+        <td id="18ac">19</td>
+        <td id="18hp">326&ndash;340</td>
+        <td id="18ab">+10</td>
+        <td id="18dmg">111&ndash;116</td>
+        <td id="18dc">19</td>
       </tr>
       <tr>
         <th>19&nbsp;(22,000&nbsp;XP)</th>
-        <td>+6</td>
-        <td>19</td>
-        <td>341&ndash;355</td>
-        <td>+10</td>
-        <td>117&ndash;122</td>
-        <td>19</td>
+        <td id="19pb">+6</td>
+        <td id="19ac">19</td>
+        <td id="19hp">341&ndash;355</td>
+        <td id="19ab">+10</td>
+        <td id="19dmg">117&ndash;122</td>
+        <td id="19dc">19</td>
       </tr>
       <tr>
         <th onclick="window.alert(Roll(promptN(20),20))">20&nbsp;(25,000&nbsp;XP)</th>
-        <td>+6</td>
-        <td>19</td>
-        <td>356&ndash;400</td>
-        <td>+10</td>
-        <td>123&ndash;140</td>
-        <td>19</td>
+        <td id="20pb">+6</td>
+        <td id="20ac">19</td>
+        <td id="20hp">356&ndash;400</td>
+        <td id="20ab">+10</td>
+        <td id="20dmg">123&ndash;140</td>
+        <td id="20dc">19</td>
       </tr>
       <tr>
         <th>21&nbsp;(33,000&nbsp;XP)</th>
-        <td>+7</td>
-        <td>19</td>
-        <td>401&ndash;445</td>
-        <td>+11</td>
-        <td>141&ndash;158</td>
-        <td>20</td>
+        <td id="21pb">+7</td>
+        <td id="21ac">19</td>
+        <td id="21hp">401&ndash;445</td>
+        <td id="21ab">+11</td>
+        <td id="21dmg">141&ndash;158</td>
+        <td id="21dc">20</td>
       </tr>
       <tr>
         <th>22&nbsp;(41,000&nbsp;XP)</th>
-        <td>+7</td>
-        <td>19</td>
-        <td>446&ndash;490</td>
-        <td>+11</td>
-        <td>159&ndash;176</td>
-        <td>20</td>
+        <td id="22pb">+7</td>
+        <td id="22ac">19</td>
+        <td id="22hp">446&ndash;490</td>
+        <td id="22ab">+11</td>
+        <td id="22dmg">159&ndash;176</td>
+        <td id="22dc">20</td>
       </tr>
       <tr>
         <th>23&nbsp;(50,000&nbsp;XP)</th>
-        <td>+7</td>
-        <td>19</td>
-        <td>491&ndash;535</td>
-        <td>+11</td>
-        <td>177&ndash;194</td>
-        <td>20</td>
+        <td id="23pb">+7</td>
+        <td id="23ac">19</td>
+        <td id="23hp">491&ndash;535</td>
+        <td id="23ab">+11</td>
+        <td id="23dmg">177&ndash;194</td>
+        <td id="23dc">20</td>
       </tr>
       <tr>
         <th>24&nbsp;(62,000&nbsp;XP)</th>
-        <td>+7</td>
-        <td>19</td>
-        <td>536&ndash;580</td>
-        <td>+12</td>
-        <td>195&ndash;212</td>
-        <td>21</td>
+        <td id="24pb">+7</td>
+        <td id="24ac">19</td>
+        <td id="24hp">536&ndash;580</td>
+        <td id="24ab">+12</td>
+        <td id="24dmg">195&ndash;212</td>
+        <td id="24dc">21</td>
       </tr>
       <tr>
         <th>25&nbsp;(75,000&nbsp;XP)</th>
-        <td>+8</td>
-        <td>19</td>
-        <td>581&ndash;625</td>
-        <td>+12</td>
-        <td>213&ndash;230</td>
-        <td>21</td>
+        <td id="25pb">+8</td>
+        <td id="25ac">19</td>
+        <td id="25hp">581&ndash;625</td>
+        <td id="25ab">+12</td>
+        <td id="25dmg">213&ndash;230</td>
+        <td id="25dc">21</td>
       </tr>
       <tr>
         <th>26&nbsp;(90,000&nbsp;XP)</th>
-        <td>+8</td>
-        <td>19</td>
-        <td>626&ndash;670</td>
-        <td>+12</td>
-        <td>231&ndash;248</td>
-        <td>21</td>
+        <td id="26pb">+8</td>
+        <td id="26ac">19</td>
+        <td id="26hp">626&ndash;670</td>
+        <td id="26ab">+12</td>
+        <td id="26dmg">231&ndash;248</td>
+        <td id="26dc">21</td>
       </tr>
       <tr>
         <th>27&nbsp;(105,000&nbsp;XP)</th>
-        <td>+8</td>
-        <td>19</td>
-        <td>671&ndash;715</td>
-        <td>+13</td>
-        <td>249&ndash;266</td>
-        <td>22</td>
+        <td id="27pb">+8</td>
+        <td id="27ac">19</td>
+        <td id="27hp">671&ndash;715</td>
+        <td id="27ab">+13</td>
+        <td id="27dmg">249&ndash;266</td>
+        <td id="27dc">22</td>
       </tr>
       <tr>
         <th>28&nbsp;(120,000&nbsp;XP)</th>
-        <td>+8</td>
-        <td>19</td>
-        <td>716&ndash;760</td>
-        <td>+13</td>
-        <td>267&ndash;284</td>
-        <td>22</td>
+        <td id="28pb">+8</td>
+        <td id="28ac">19</td>
+        <td id="28hp">716&ndash;760</td>
+        <td id="28ab">+13</td>
+        <td id="28dmg">267&ndash;284</td>
+        <td id="28dc">22</td>
       </tr>
       <tr>
         <th>29&nbsp;(135,000&nbsp;XP)</th>
-        <td>+9</td>
-        <td>19</td>
-        <td>761&ndash;805</td>
-        <td>+13</td>
-        <td>285&ndash;302</td>
-        <td>22</td>
+        <td id="29pb">+9</td>
+        <td id="29ac">19</td>
+        <td id="29hp">761&ndash;805</td>
+        <td id="29ab">+13</td>
+        <td id="29dmg">285&ndash;302</td>
+        <td id="29dc">22</td>
       </tr>
       <tr>
         <th onclick="window.alert(Roll(promptN(30),30))">30&nbsp;(155,000&nbsp;XP)</th>
-        <td>+9</td>
-        <td>19</td>
-        <td>806&ndash;850</td>
-        <td>+14</td>
-        <td>303&ndash;320</td>
-        <td>23</td>
+        <td id="30pb">+9</td>
+        <td id="30ac">19</td>
+        <td id="30hp">806&ndash;850</td>
+        <td id="30ab">+14</td>
+        <td id="30dmg">303&ndash;320</td>
+        <td id="30dc">23</td>
       </tr>
       <tr>
         <th class="refSubHeader" colspan="7">Table used</th>
       </tr>
       <tr>
-        <td class="innerCell" colspan="3" title="Use Warcraft 5e table">
+        <td class="innerCell" colspan="2" title="Use Warcraft 5e table">
           <label for="wc5eTable"><input id="wc5eTable" type="checkbox" checked
               onclick="swapTable('wc5eTable')">&nbsp;WC5e</label>
         </td>
-        <td class="innerCell" colspan="4" title="Use official table">
+        <td class="innerCell" colspan="2" title="Use official 2014 table">
           <label for="officialTable"><input id="officialTable" type="checkbox"
-              onclick="swapTable('officialTable')">&nbsp;Official</label>
+              onclick="swapTable('officialTable')">&nbsp;Official 2014</label>
+        </td>
+        <td class="innerCell" colspan="3" title="Use Blog of Holding 2024 table">
+          <label for="2024Table"><input id="2024Table" type="checkbox"
+              onclick="swapTable('2024Table')">&nbsp;Blog of Holding 2024</label>
         </td>
       </tr>
     </table>

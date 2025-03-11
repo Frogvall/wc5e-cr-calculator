@@ -17,3 +17,5 @@ With 6.0, I added support for mathematical expressions in some fields.
 With 7.0, I extended the support for mathematical expressions with parsing of dice expressions in some fields.
 
 With 7.1, I added support for swapping between the WC5e table and the official table (affecting Defensive CR for CR 1/8-1).
+
+With 8.0, I added support for 2024 CR tables made by [Blog of Holding](https://www.blogofholding.com/?p=8469), by reverse engineering the 2024 Monster Manual.

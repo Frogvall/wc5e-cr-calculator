@@ -14,6 +14,7 @@ function fillOut(_valueString) {
     legacyFillOut(_valueString);
   } else {
     if (values[0] == "v3") {
+      document.getElementById("2024Table").checked = values[1] == "2";
       document.getElementById("wc5eTable").checked = values[1] == "1";
       document.getElementById("officialTable").checked = values[1] == "0";
       values.splice(1,1);
@@ -73,28 +74,28 @@ function fillOut(_valueString) {
     let is3 = values.indexOf('is3');
     if (is1 == -1) {
       let spellNames = [values.length-spellStartIndex];
-      for (var i = spellStartIndex; i < values.length; i++) {
+      for (let i = spellStartIndex; i < values.length; i++) {
         spellNames[i-spellStartIndex] = decodeURIComponent(values[i]);
       }
       select.set(spellNames);
     } else {
       let spellNames = [is1-spellStartIndex];
-      for (var i = spellStartIndex; i < is1; i++) {
+      for (let i = spellStartIndex; i < is1; i++) {
         spellNames[i-spellStartIndex] = decodeURIComponent(values[i]);
       }
       select.set(spellNames);
       spellNames = [is2-is1-1];
-      for (var i = is1+1; i < is2; i++) {
+      for (let i = is1+1; i < is2; i++) {
         spellNames[i-is1-1] = decodeURIComponent(values[i]);
       }
       iSelect1.set(spellNames);
       spellNames = [is3-is2-1];
-      for (var i = is2+1; i < is3; i++) {
+      for (let i = is2+1; i < is3; i++) {
         spellNames[i-is2-1] = decodeURIComponent(values[i]);
       }
       iSelect2.set(spellNames);
       spellNames = [values.length-is3-1];
-      for (var i = is3+1; i < values.length; i++) {
+      for (let i = is3+1; i < values.length; i++) {
         spellNames[i-is3-1] = decodeURIComponent(values[i]);
       }
       iSelect3.set(spellNames);
@@ -203,7 +204,7 @@ function legacyFillOut(_valueString) {
 
 function generateUrl() {
   var valueString = "v3;" +
-    (document.getElementById("wc5eTable").checked ? "1" : "0")
+    (document.getElementById("2024Table").checked ? "2" : document.getElementById("wc5eTable").checked ? "1" : "0")
     + ";" +
     document.getElementById("targetCR").selectedIndex
     + ";" +
@@ -402,114 +403,45 @@ function roundCR(_num, _alpha = false) {
   }
 }
 function DCRbyHP(_hp) {
-  isWc5e = isWC5eTableUsed()
-  max1_8 = getMaxHitPoints(isWc5e, -2)
-  max1_4 = getMaxHitPoints(isWc5e, -1)
-  max1_2 = getMaxHitPoints(isWc5e, 0)
-  if (_hp < 7) {
-    return -3;
-  } else if (_hp < max1_8+1) {
-    return -2;
-  } else if (_hp < max1_4+1) {
-    return -1;
-  } else if (_hp < max1_2+1) {
-    return 0
-  } else if (_hp < 86) {
-    return 1;
-  } else if (_hp < 356) {
-    return 1 + Math.floor((_hp - 71) / 15);
-  } else {
-    return 20 + Math.floor((_hp - 356) / 45);
+  statsTableMap = getStatsTableMap()
+  for (let i = -3; i < 31; i++) {
+    stats = statsTableMap.get(i);
+    if (_hp <= stats.hitPointsMax)
+      return i;
   }
+  return 31;
 }
 function ACforHPCR(_hpcr) {
+  statsTableMap = getStatsTableMap()
   if (_hpcr <= -3) {
-    return Math.min(Math.floor(math.evaluate(document.getElementById("actualAC").value)), 13);
-  } else if (_hpcr < 3) {
-    return 13;
-  } else if (_hpcr < 5) {
-    return 14;
-  } else if (_hpcr < 8) {
-    return 15;
-  } else if (_hpcr < 10) {
-    return 16;
-  } else if (_hpcr < 13) {
-    return 17;
-  } else if (_hpcr < 17) {
-    return 18;
+    return Math.min(Math.floor(math.evaluate(document.getElementById("actualAC").value)), statsTableMap.get(-3).armorClass);
   } else {
-    return 19;
+    return statsTableMap.get(_hpcr).armorClass;
   }
 }
 function OCRbyDmg(_dmg) {
-  if (_dmg < 2) {
-    return -3;
-  } else if (_dmg < 4) {
-    return -2;
-  } else if (_dmg < 6) {
-    return -1;
-  } else if (_dmg < 9) {
-    return 0;
-  } else if (_dmg < 123) {
-    return 1 + Math.floor((_dmg - 9) / 6);
-  } else {
-    return 20 + Math.floor((_dmg - 123) / 18);
+  statsTableMap = getStatsTableMap()
+  for (let i = -3; i < 31; i++) {
+    stats = statsTableMap.get(i);
+    if (_dmg <= stats.damagePerRoundMax)
+      return i;
   }
+  return 31;
 }
 function AttforDmgCR(_dmgcr) {
+  statsTableMap = getStatsTableMap()
   if (_dmgcr <= -3) {
-    return Math.min(parseInt(document.getElementById("actualAB").value), 3);
-  } else if (_dmgcr < 3) {
-    return 3;
-  } else if (_dmgcr < 4) {
-    return 4;
-  } else if (_dmgcr < 5) {
-    return 5;
-  } else if (_dmgcr < 8) {
-    return 6;
-  } else if (_dmgcr < 11) {
-    return 7;
-  } else if (_dmgcr < 16) {
-    return 8;
-  } else if (_dmgcr < 17) {
-    return 9;
-  } else if (_dmgcr < 21) {
-    return 10;
-  } else if (_dmgcr < 24) {
-    return 11;
-  } else if (_dmgcr < 27) {
-    return 12;
-  } else if (_dmgcr < 30) {
-    return 13;
+    return Math.min(parseInt(document.getElementById("actualAB").value), statsTableMap.get(-3).attackBonus);
   } else {
-    return 14;
+    return statsTableMap.get(_dmgcr).attackBonus;
   }
 }
 function SDCforDmgCR(_dmgcr) {
+  statsTableMap = getStatsTableMap()
   if (_dmgcr <= -3) {
-    return Math.min(parseInt(document.getElementById("actualSDC").value), 13);
-  } else if (_dmgcr < 4) {
-    return 13;
-  } else if (_dmgcr < 5) {
-    return 14;
-  } else if (_dmgcr < 8) {
-    return 15;
-  } else if (_dmgcr < 11) {
-    return 16;
-  } else if (_dmgcr < 13) {
-    return 17;
-  } else if (_dmgcr < 17) {
-    return 18;
-  } else if (_dmgcr < 21) {
-    return 19;
-  } else if (_dmgcr < 24) {
-    return 20;
-  } else if (_dmgcr < 27) {
-    return 21;
-  } else if (_dmgcr < 30) {
-    return 22;
+    return Math.min(parseInt(document.getElementById("actualAB").value), statsTableMap.get(-3).saveDC);
   } else {
-    return 23;
+    return statsTableMap.get(_dmgcr).saveDC;
   }
 }
 function Validate() // Makes sure the current values in all input boxes are within acceptable ranges. If not, set to default
@@ -566,6 +498,7 @@ function Validate() // Makes sure the current values in all input boxes are with
   if (parseInt(document.getElementById("legendaryResistanceUses").value) < 1) { document.getElementById("legendaryResistanceUses").value = 1; }
   if (parseInt(document.getElementById("regenerationValue").value) < 1) { document.getElementById("regenerationValue").value = 1; }
 }
+
 function TransformToTableValue(_value) {
   if (_value == -3) return 0;
   if (_value == -2) return 0.125;
@@ -573,18 +506,30 @@ function TransformToTableValue(_value) {
   if (_value == 0) return 0.5;
   return _value;
 }
+
 function Calculate() // Begins main CR calculation
 {
   Validate(); // validate that inputs are OK
 
-  isWc5e = isWC5eTableUsed()
-  max1_8 = getMaxHitPoints(isWc5e, -2)
-  max1_4 = getMaxHitPoints(isWc5e, -1)
-  max1_2 = getMaxHitPoints(isWc5e, 0)
-  document.getElementById("1/8hp").innerHTML = `7&ndash;${max1_8}`;
-  document.getElementById("1/4hp").innerHTML = `${max1_8+1}&ndash;${max1_4}`;
-  document.getElementById("1/2hp").innerHTML = `${max1_4+1}&ndash;${max1_2}`;
-  document.getElementById("1hp").innerHTML = `${max1_2+1}&ndash;85`;
+  statsTableMap = getStatsTableMap()
+
+  cr0Stats = statsTableMap.get(-3);
+  document.getElementById(`-3pb`).innerHTML = cr0Stats.profBonus
+  document.getElementById(`-3ac`).innerHTML = `&le;${cr0Stats.armorClass}`
+  document.getElementById(`-3hp`).innerHTML = `${cr0Stats.hitPointsMin}&ndash;${cr0Stats.hitPointsMax}`
+  document.getElementById(`-3ab`).innerHTML = `&le;${cr0Stats.attackBonus}`
+  document.getElementById(`-3dmg`).innerHTML = `${cr0Stats.damagePerRoundMin}&ndash;${cr0Stats.damagePerRoundMax}`
+  document.getElementById(`-3dc`).innerHTML = `&le;${cr0Stats.saveDC}`
+
+  for (let i = -2; i < 31; i++) {
+    stats = statsTableMap.get(i);
+    document.getElementById(`${i}pb`).innerHTML = stats.profBonus
+    document.getElementById(`${i}ac`).innerHTML = stats.armorClass
+    document.getElementById(`${i}hp`).innerHTML = `${stats.hitPointsMin}&ndash;${stats.hitPointsMax}`
+    document.getElementById(`${i}ab`).innerHTML = stats.attackBonus
+    document.getElementById(`${i}dmg`).innerHTML = `${stats.damagePerRoundMin}&ndash;${stats.damagePerRoundMax}`
+    document.getElementById(`${i}dc`).innerHTML = stats.saveDC
+  }
 
   //CALCULATE TIER â€” check target CR range, shorten to a corresponding "tier"
   var tier = 1;
@@ -779,9 +724,9 @@ function Calculate() // Begins main CR calculation
   var adjAC = "";
 
   if (HPCR == -3) {
-    if (AC > 14) {
-      DCR += Math.floor(Math.abs(AC - 13) / 2);
-      adjAC = " (+" + Math.floor(Math.abs(AC - 13) / 2) + " CR)"
+    if (AC > cr0Stats.armorClass+1) {
+      DCR += Math.floor(Math.abs(AC - cr0Stats.armorClass) / 2);
+      adjAC = " (+" + Math.floor(Math.abs(AC - cr0Stats.armorClass) / 2) + " CR)"
     } else {
       adjAC = " (+0 CR)"
     }
@@ -796,7 +741,7 @@ function Calculate() // Begins main CR calculation
 
   document.getElementById("CRbyHP").innerHTML = roundCR(TransformToTableValue(HPCR), true);
   if (HPCR == -3) {
-    document.getElementById("HPCRAC").innerHTML = "&le;13<br/><span class='smallAddendum'>" + adjAC + "</span>";
+    document.getElementById("HPCRAC").innerHTML = `&le;${cr0Stats.armorClass}<br/><span class='smallAddendum'>` + adjAC + "</span>";
   } else {
     document.getElementById("HPCRAC").innerHTML = expectedAC + "<br/><span class='smallAddendum'>" + adjAC + "</span>";
   }
@@ -813,9 +758,9 @@ function Calculate() // Begins main CR calculation
   var adjSDC = "";
 
   if (dmgCR == -3) {
-    if (attBonus > 4) {
-      aOCR += Math.floor(Math.abs(attBonus - 3) / 2);
-      adjAtt = " (+" + Math.floor(Math.abs(attBonus - 3) / 2) + " CR)"
+    if (attBonus > cr0Stats.attackBonus+1) {
+      aOCR += Math.floor(Math.abs(attBonus - cr0Stats.attackBonus) / 2);
+      adjAtt = " (+" + Math.floor(Math.abs(attBonus - cr0Stats.attackBonus) / 2) + " CR)"
     } else {
       adjAtt = " (+0 CR)"
     }
@@ -827,9 +772,9 @@ function Calculate() // Begins main CR calculation
     adjAtt = " (-" + Math.floor(Math.abs(attBonus - expectedAtt) / 2) + " CR)"
   }
   if (dmgCR == -3) {
-    if (SDC > 14) {
-      sOCR += Math.floor(Math.abs(SDC - 13) / 2);
-      adjSDC = " (+" + Math.floor(Math.abs(SDC - 13) / 2) + " CR)"
+    if (SDC > cr0Stats.attackBonus+1) {
+      sOCR += Math.floor(Math.abs(SDC - cr0Stats.saveDC) / 2);
+      adjSDC = " (+" + Math.floor(Math.abs(SDC - cr0Stats.saveDC) / 2) + " CR)"
     } else {
       adjSDC = " (+0 CR)"
     }
@@ -858,8 +803,8 @@ function Calculate() // Begins main CR calculation
 
   document.getElementById("CRbyDmg").innerHTML = roundCR(TransformToTableValue(dmgCR), true) + "<br/><span class='smallAddendum'>(" + TransformToTableValue(dmgCR) + ")</span>";
   if (dmgCR == -3) {
-    document.getElementById("DmgCRAtt").innerHTML = "&le;+3<br/><span class='smallAddendum'>" + adjAtt + "</span>";
-    document.getElementById("DmgCRSDC").innerHTML = "&le;13<br/><span class='smallAddendum'>" + adjSDC + "</span>";
+    document.getElementById("DmgCRAtt").innerHTML = `&le;+${cr0Stats.attackBonus}<br/><span class='smallAddendum'>` + adjAtt + "</span>";
+    document.getElementById("DmgCRSDC").innerHTML = `&le;${cr0Stats.saveDC}<br/><span class='smallAddendum'>` + adjSDC + "</span>";
   } else {
     document.getElementById("DmgCRAtt").innerHTML = "+" + expectedAtt + "<br/><span class='smallAddendum'>" + adjAtt + "</span>";
     document.getElementById("DmgCRSDC").innerHTML = expectedSDC + "<br/><span class='smallAddendum'>" + adjSDC + "</span>";
