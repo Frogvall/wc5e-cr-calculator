@@ -406,45 +406,23 @@ function roundCR(_num, _alpha = false) {
 }
 function DCRbyHP(_hp) {
   statsTableMap = getStatsTableMap()
-  for (let i = -3; i < 31; i++) {
-    stats = statsTableMap.get(i);
-    if (_hp <= stats.hitPointsMax)
-      return i;
-  }
-  return 31;
+  return statsTableMap.dcrByHP(_hp);
 }
 function ACforHPCR(_hpcr) {
   statsTableMap = getStatsTableMap()
-  if (_hpcr <= -3) {
-    return Math.min(Math.floor(math.evaluate(document.getElementById("actualAC").value)), statsTableMap.get(-3).armorClass);
-  } else {
-    return statsTableMap.get(_hpcr).armorClass;
-  }
+  return statsTableMap.acForHPCR(_hpcr, Math.floor(math.evaluate(document.getElementById("actualAC").value)));
 }
 function OCRbyDmg(_dmg) {
   statsTableMap = getStatsTableMap()
-  for (let i = -3; i < 31; i++) {
-    stats = statsTableMap.get(i);
-    if (_dmg <= stats.damagePerRoundMax)
-      return i;
-  }
-  return 31;
+  return statsTableMap.ocrByDmg(_dmg);
 }
 function AttforDmgCR(_dmgcr) {
   statsTableMap = getStatsTableMap()
-  if (_dmgcr <= -3) {
-    return Math.min(parseInt(document.getElementById("actualAB").value), statsTableMap.get(-3).attackBonus);
-  } else {
-    return statsTableMap.get(_dmgcr).attackBonus;
-  }
+  return statsTableMap.attForDmgCR(_dmgcr, parseInt(document.getElementById("actualAB").value));
 }
 function SDCforDmgCR(_dmgcr) {
   statsTableMap = getStatsTableMap()
-  if (_dmgcr <= -3) {
-    return Math.min(parseInt(document.getElementById("actualAB").value), statsTableMap.get(-3).saveDC);
-  } else {
-    return statsTableMap.get(_dmgcr).saveDC;
-  }
+  return statsTableMap.sdcForDmgCR(_dmgcr, parseInt(document.getElementById("actualAB").value));
 }
 function Validate() // Makes sure the current values in all input boxes are within acceptable ranges. If not, set to default
 {
@@ -516,19 +494,19 @@ function Calculate() // Begins main CR calculation
   statsTableMap = getStatsTableMap()
 
   cr0Stats = statsTableMap.get(-3);
-  document.getElementById(`-3pb`).innerHTML = cr0Stats.profBonus
+  document.getElementById(`-3pb`).innerHTML = `+${cr0Stats.profBonus}`
   document.getElementById(`-3ac`).innerHTML = `&le;${cr0Stats.armorClass}`
   document.getElementById(`-3hp`).innerHTML = `${cr0Stats.hitPointsMin}&ndash;${cr0Stats.hitPointsMax}`
-  document.getElementById(`-3ab`).innerHTML = `&le;${cr0Stats.attackBonus}`
+  document.getElementById(`-3ab`).innerHTML = `&le;+${cr0Stats.attackBonus}`
   document.getElementById(`-3dmg`).innerHTML = `${cr0Stats.damagePerRoundMin}&ndash;${cr0Stats.damagePerRoundMax}`
   document.getElementById(`-3dc`).innerHTML = `&le;${cr0Stats.saveDC}`
 
   for (let i = -2; i < 31; i++) {
     stats = statsTableMap.get(i);
-    document.getElementById(`${i}pb`).innerHTML = stats.profBonus
+    document.getElementById(`${i}pb`).innerHTML = `+${stats.profBonus}`
     document.getElementById(`${i}ac`).innerHTML = stats.armorClass
     document.getElementById(`${i}hp`).innerHTML = `${stats.hitPointsMin}&ndash;${stats.hitPointsMax}`
-    document.getElementById(`${i}ab`).innerHTML = stats.attackBonus
+    document.getElementById(`${i}ab`).innerHTML = `+${stats.attackBonus}`
     document.getElementById(`${i}dmg`).innerHTML = `${stats.damagePerRoundMin}&ndash;${stats.damagePerRoundMax}`
     document.getElementById(`${i}dc`).innerHTML = stats.saveDC
   }
